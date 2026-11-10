@@ -1,0 +1,15 @@
+{
+  "title": "Air or rail from Stuttgart: open flight tracking data, analysis code and learning tool",
+  "upload_type": "software",
+  "version": "2.0.0",
+  "creators": [
+    {"name": "Nepper, Hannes Helmut", "affiliation": "University of Education Schwäbisch Gmünd", "orcid": "0009-0008-7350-9656"}
+  ],
+  "description": "<p>Data, analysis code, results and learning tool for the article 'Open flight tracking data show that framing drives the air to rail substitution potential' (submitted to npj Sustainable Mobility and Transport). All 893 departures from Stuttgart Airport (EDDS), 19–25 October 2026, reconstructed from OpenSky Network ADS-B data; CO₂ per flight estimated with OpenAP; rail comparison for 24 destinations within 600 km; scenario model, sensitivity analysis and Sobol indices. Raw OpenSky records are not redistributed; the README explains how to retrieve them.</p><p>Code: MIT licence. Data, results, figures and learning tool: CC BY 4.0.</p>",
+  "license": "mit",
+  "keywords": ["air-rail substitution", "ADS-B", "OpenSky Network", "OpenAP", "CO2 emissions", "sensitivity analysis", "technology assessment", "teacher education"],
+  "related_identifiers": [
+    {"identifier": "https://creatorlab-edu.github.io/flug-vs-bahn-stuttgart/", "relation": "isSupplementedBy", "resource_type": "software"}
+  ],
+  "language": "eng"
+}
