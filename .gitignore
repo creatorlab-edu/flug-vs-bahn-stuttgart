@@ -1,0 +1,19 @@
+# OpenSky access – never commit
+credentials.json
+*credentials*.json
+.env
+
+# raw OpenSky records and the OpenSky aircraft database (not redistributed)
+fluege_roh.csv
+**/fluege_roh.csv
+aircraft-database-*.csv
+
+# local outputs
+code/ergebnisse/
+code/paper/
+code/flug_bahn_werkzeug.html
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+*.zip
