@@ -1,0 +1,782 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flug oder Bahn ab Stuttgart</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* CreatorLab-Design: Schwarz-Weiß, schmale Versal-Headlines,
+   Mono-Etiketten, Eckwinkel, 2-px-Linien. Layout: links Stellschrauben, rechts Wirkung. */
+:root{
+  --paper:#ffffff; --ink:#0a0a0a; --mute:#5c5c5c; --faint:#9a9a9a; --soft:#ededed; --rule:#0a0a0a;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:15px/1.5 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.wrap{max-width:1400px;margin:0 auto;display:grid;gap:22px}
+.mono,.tag{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 32px;padding-block:26px 18px;border-bottom:2px solid var(--rule)}
+.brand{display:flex;align-items:flex-end;gap:22px;min-width:0;flex-wrap:wrap}
+.brand img{height:54px;width:auto;flex:none}
+.brand .eyebrow{color:var(--mute);margin-bottom:6px}
+h1{font:800 clamp(32px,5.4vw,60px)/.92 var(--display);text-transform:uppercase;letter-spacing:.01em;margin:0;text-wrap:balance}
+.lang{display:flex;border:2px solid var(--ink)}
+.lang button{font:500 12px var(--mono);letter-spacing:.08em;padding:7px 12px;background:var(--paper);color:var(--ink);border:0;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.lead{margin:0;max-width:78ch;color:var(--mute);font-size:16px}
+.banner{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:10px 0;font-size:14px}
+.banner .mono{background:var(--ink);color:var(--paper);padding:2px 8px}
+.banner.demo .mono{background:var(--paper);color:var(--ink);outline:2px solid var(--ink)}
+.grid{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.frame{position:relative;padding:20px;min-width:0}
+.frame::before,.frame::after,.frame>.c1,.frame>.c2{content:"";position:absolute;width:18px;height:18px;border:0 solid var(--ink);pointer-events:none}
+.frame::before{top:0;left:0;border-top-width:2px;border-left-width:2px}
+.frame::after{top:0;right:0;border-top-width:2px;border-right-width:2px}
+.frame>.c1{bottom:0;left:0;border-bottom-width:2px;border-left-width:2px}
+.frame>.c2{bottom:0;right:0;border-bottom-width:2px;border-right-width:2px}
+h2{font:800 26px/1 var(--display);text-transform:uppercase;margin:0 0 6px;letter-spacing:.01em}
+.hint{font-size:13.5px;color:var(--mute);margin:0 0 12px}
+.knob{display:grid;gap:4px;padding:11px 0;border-top:1px solid var(--soft)}
+.knob.first{border-top:0}
+.knob .tag{color:var(--mute)}
+.knob label{display:flex;justify-content:space-between;gap:10px;font-weight:600;font-size:14.5px}
+.knob output{font:500 13px var(--mono);white-space:nowrap}
+.knob small{color:var(--mute);font-size:12.5px;line-height:1.35}
+.kind{font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:0 5px;border:1px dashed var(--mute);color:var(--mute);justify-self:start}
+.kind.fr{border-style:solid;border-color:var(--ink);color:var(--ink)}
+.knob select{font:inherit;font-size:14px;padding:4px 6px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink)}
+.hcard select{font:inherit;font-size:13px;padding:3px 4px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink);justify-self:start}
+input[type=range]{width:100%;accent-color:var(--ink)}
+.btn{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;border:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:8px 12px;cursor:pointer}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn:focus-visible,input:focus-visible,.lang button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+@media (max-width:560px){.kpis{grid-template-columns:minmax(0,1fr)}}
+.kpi{display:grid;gap:2px;padding:12px 14px;border-left:1px solid var(--soft)}
+.kpi:first-child{border-left:0;padding-left:0}
+.kpi .v{font:800 46px/1 var(--display);font-variant-numeric:tabular-nums}
+.kpi .k{font-size:13px;color:var(--mute)}
+.chartbox{overflow-x:auto;margin-top:16px}
+svg text{fill:var(--ink);font-family:var(--body)}
+svg .axis{stroke:var(--soft)} svg .tick{fill:var(--mute);font-size:11px;font-family:var(--mono)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--mute);margin-top:6px;align-items:center}
+.legend svg{vertical-align:-2px;margin-right:6px}
+.tablebox{overflow-x:auto;margin-top:6px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:820px}
+th,td{padding:7px 6px;border-bottom:1px solid var(--soft);text-align:right;white-space:nowrap;vertical-align:top}
+thead th{font:500 10.5px var(--mono);text-transform:uppercase;letter-spacing:.03em;color:var(--mute);vertical-align:bottom;border-bottom:2px solid var(--ink)}
+td:nth-child(-n+2),th:nth-child(-n+2){text-align:left}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px}
+td .st{display:block;font:12px var(--body);color:var(--mute)}
+tr.off td{color:var(--faint)}
+.pill{display:inline-block;font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border:1.5px solid var(--ink);margin-left:4px}
+.pill.in{background:var(--ink);color:var(--paper)}
+input.pct{width:58px;font:13px var(--mono);text-align:right;padding:3px 4px;border:1.5px solid var(--ink);background:var(--paper);color:var(--ink)}
+input[type=checkbox]{accent-color:var(--ink);width:16px;height:16px}
+textarea{width:100%;min-height:250px;font:12.5px/1.5 var(--mono);color:var(--ink);background:var(--paper);border:2px solid var(--ink);padding:10px}
+footer.bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px 32px;border-top:2px solid var(--rule);padding-top:16px}
+footer .logos{display:flex;align-items:center;gap:26px}
+footer .logos img{height:30px;width:auto}
+footer .logos .ph{height:26px;width:auto;color:var(--ink)}
+footer .logos a{color:var(--ink);display:inline-flex}
+footer .credits{display:flex;flex-direction:column;gap:2px;text-align:right}
+footer .credits .foot:empty{display:none}
+@media (max-width:700px){footer .credits{text-align:left}}
+.foot{font-size:12.5px;color:var(--mute);max-width:100ch;margin:0}
+/* Unterrichtsablauf */
+.seqbar{overflow-x:auto;margin:10px 0 4px}
+.seqgrid{display:grid;grid-template-columns:repeat(6,minmax(118px,1fr));gap:6px;min-width:740px}
+.seqset{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 8px;background:var(--soft);text-align:center}
+.seqset.s1{grid-column:1/5} .seqset.s2{grid-column:5/7}
+.stepbtn{display:grid;gap:2px;text-align:left;border:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:8px 10px;cursor:pointer;font:inherit}
+.stepbtn .n{font:800 22px/1 var(--display);text-transform:uppercase}
+.stepbtn .s{font-size:12px;color:var(--mute)}
+.stepbtn[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.stepbtn[aria-selected="true"] .s{color:#cfcfcf}
+.stepbtn.done .n::after{content:" ✓";font-size:16px}
+.seqmeta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:2px solid var(--ink);border-bottom:1px solid var(--soft);margin-top:14px}
+@media (max-width:640px){.seqmeta{grid-template-columns:minmax(0,1fr)}}
+.seqmeta div{padding:8px 12px 8px 0;display:grid;gap:2px}
+.seqmeta .tag{color:var(--mute)} .seqmeta b{font-weight:600;font-size:14.5px}
+.seqtask{font-size:15.5px;max-width:90ch;margin:14px 0 10px}
+.seqtask ul{margin:6px 0 0;padding-left:20px}
+.seqwork{display:grid;gap:12px;margin:8px 0 14px}
+.claim{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;align-items:center;padding:8px 0;border-bottom:1px solid var(--soft)}
+.claim .tx{flex:1 1 320px}
+.seg{display:inline-flex;border:2px solid var(--ink)}
+.seg button{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border:0;background:var(--paper);color:var(--ink);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.claim .fb{font:500 11px var(--mono);min-width:92px;text-align:right}
+.funnel{display:grid;gap:6px}
+.funnel .row{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr) 56px;gap:10px;align-items:center;font-size:13.5px}
+@media (max-width:640px){.funnel .row{grid-template-columns:minmax(0,1fr) 56px}.funnel .bar{grid-column:1/-1;order:3}}
+.funnel .bar{height:14px;background:var(--soft)} .funnel .bar i{display:block;height:100%;background:var(--ink)}
+.funnel .num{font:500 13px var(--mono);text-align:right}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px 16px;align-items:end}
+.calc label{display:grid;gap:4px;font-size:13px;font-weight:600}
+.calc input,.calc select,.seqwork select{font:13.5px var(--mono);padding:6px 8px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);width:100%}
+.out{border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:10px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px 16px}
+.out .v{font:800 30px/1 var(--display)} .out .k{font-size:12.5px;color:var(--mute)}
+.hcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.hcard{border:2px solid var(--ink);padding:10px 12px;display:grid;gap:4px;align-content:start}
+.hcard .h{font:800 18px/1 var(--display);text-transform:uppercase}
+.hcard .r{font:500 10.5px var(--mono);letter-spacing:.06em;text-transform:uppercase;justify-self:start;padding:1px 6px;border:1.5px solid var(--ink)}
+.hcard .r.yes{background:var(--ink);color:var(--paper)}
+.hcard p{margin:0;font-size:13.5px}
+.weights{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 20px}
+.weights label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600}
+.weights output{font:500 12px var(--mono)}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices button{font:500 12px var(--body);border:2px solid var(--ink);background:var(--paper);color:var(--ink);padding:6px 10px;cursor:pointer}
+.choices button[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.seqwork textarea{min-height:90px;font:14px/1.45 var(--body)}
+.seqwork h3{font:800 17px/1 var(--display);text-transform:uppercase;margin:6px 0 0}
+.scenlist{font:12.5px/1.5 var(--mono);margin:0;padding-left:18px}
+.seqnav{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.seqnav .sp{flex:1}
+a.btn{text-decoration:none;display:inline-block}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <img src="data:image/png;base64,/*__CL_LOGO__*/" alt="CreatorLab">
+      <div>
+        <div class="mono eyebrow" data-i="eyebrow"></div>
+        <h1 data-i="title"></h1>
+      </div>
+    </div>
+    <div class="lang" role="group" aria-label="Sprache / Language">
+      <button type="button" id="lang-de" aria-pressed="true">DE</button>
+      <button type="button" id="lang-en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <p class="lead" data-i="lead"></p>
+  <div class="banner" id="banner"><span class="mono" id="banner-tag"></span><span id="banner-text"></span></div>
+
+  <section class="frame" aria-labelledby="h-seq" id="seq"><i class="c1"></i><i class="c2"></i>
+    <h2 id="h-seq" data-i="seqTitle"></h2>
+    <p class="hint" data-i="seqHint"></p>
+    <div class="seqbar"><div class="seqgrid">
+      <div class="seqset s1" data-i="set1"></div><div class="seqset s2" data-i="set2"></div>
+      <div id="stepbtns" role="tablist" style="display:contents"></div>
+    </div></div>
+    <div class="seqmeta">
+      <div><span class="tag" data-i="metaSet"></span><b id="m-set"></b></div>
+      <div><span class="tag" data-i="metaTA"></span><b id="m-ta"></b></div>
+      <div><span class="tag" data-i="metaPS"></span><b id="m-ps"></b></div>
+    </div>
+    <div class="seqtask" id="s-task"></div>
+    <div class="seqwork" id="s-work"></div>
+    <div class="seqnav">
+      <button class="btn" type="button" id="s-prev" data-i="prev"></button>
+      <button class="btn" type="button" id="s-next" data-i="next"></button>
+      <span class="sp"></span>
+      <button class="btn" type="button" data-go="h-ann" data-i="toTool"></button>
+      <button class="btn" type="button" data-go="h-prot" data-i="toProt"></button>
+    </div>
+  </section>
+
+  <div class="grid">
+    <section class="frame" aria-labelledby="h-ann"><i class="c1"></i><i class="c2"></i>
+      <h2 id="h-ann" data-i="assumptions"></h2>
+      <p class="hint" data-i="assumptionsHint"></p>
+
+      <p class="hint" data-i="kindsHint"></p>
+      <div class="knob first"><span class="tag" data-i="gWho"></span>
+        <label for="crit"><span data-i="crit"></span> <output id="o-crit"></output></label>
+        <select id="crit"><option value="0" data-i="critIV"></option><option value="1" data-i="critDD"></option></select>
+        <small class="kind fr" data-i="kFrame"></small><small data-i="critHint"></small></div>
+      <div class="knob" id="knob-thr">
+        <label for="thr"><span data-i="thr"></span> <output id="o-thr"></output></label>
+        <input type="range" id="thr" min="60" max="480" step="15">
+        <small class="kind fr" data-i="kFrame"></small><small data-i="thrHint"></small></div>
+      <div class="knob" id="knob-dm">
+        <label for="dm"><span data-i="dm"></span> <output id="o-dm"></output></label>
+        <input type="range" id="dm" min="0" max="180" step="15">
+        <small class="kind fr" data-i="kFrame"></small><small data-i="dmHint"></small></div>
+      <div class="knob">
+        <label for="ms"><span data-i="ms"></span> <output id="o-ms"></output></label>
+        <input type="range" id="ms" min="0.2" max="1" step="0.05">
+        <small class="kind" data-i="kScen"></small><small data-i="msHint"></small></div>
+      <div class="knob">
+        <label for="acc"><span data-i="acc"></span> <output id="o-acc"></output></label>
+        <select id="acc"><option value="0" data-i="acc0"></option><option value="1" data-i="acc1"></option><option value="2" data-i="acc2"></option></select>
+        <small class="kind fr" data-i="kFrame"></small><small data-i="accHint"></small></div>
+      <div class="knob">
+        <label for="tr"><span data-i="tr"></span> <output id="o-tr"></output></label>
+        <input type="range" id="tr" min="0" max="1" step="0.05">
+        <small class="kind" data-i="kModel"></small><small data-i="trHint"></small></div>
+
+      <div class="knob"><span class="tag" data-i="gAir"></span>
+        <label for="lf"><span data-i="lf"></span> <output id="o-lf"></output></label>
+        <input type="range" id="lf" min="0.5" max="0.95" step="0.05"><small class="kind" data-i="kModel"></small></div>
+      <div class="knob">
+        <label for="fe"><span data-i="fe"></span> <output id="o-fe"></output></label>
+        <input type="range" id="fe" min="0.8" max="1.2" step="0.05"><small class="kind" data-i="kModel"></small></div>
+      <div class="knob">
+        <label for="nc"><span data-i="nc"></span> <output id="o-nc"></output></label>
+        <input type="range" id="nc" min="1" max="3" step="0.1">
+        <small class="kind fr" data-i="kFrame"></small><small data-i="ncHint"></small></div>
+
+      <div class="knob"><span class="tag" data-i="gRail"></span>
+        <label for="rg"><span data-i="rg"></span> <output id="o-rg"></output></label>
+        <input type="range" id="rg" min="0" max="60" step="1">
+        <small class="kind fr" data-i="kModelFrame"></small><small data-i="rgHint"></small></div>
+      <div class="knob">
+        <label for="rd"><span data-i="rd"></span> <output id="o-rd"></output></label>
+        <input type="range" id="rd" min="1" max="1.6" step="0.05"><small class="kind" data-i="kModel"></small></div>
+
+      <div class="knob"><span class="tag" data-i="gCity"></span>
+        <label for="aa"><span data-i="aa"></span> <output id="o-aa"></output></label>
+        <input type="range" id="aa" min="60" max="240" step="10">
+        <small class="kind" data-i="kModel"></small><small data-i="aaHint"></small></div>
+      <div class="knob">
+        <label for="ra"><span data-i="ra"></span> <output id="o-ra"></output></label>
+        <input type="range" id="ra" min="10" max="120" step="5"><small class="kind" data-i="kModel"></small></div>
+      <div class="knob"><span class="tag" data-i="gTransfer"></span>
+        <label for="aat"><span data-i="aa"></span> <output id="o-aat"></output></label>
+        <input type="range" id="aat" min="60" max="240" step="10">
+        <small class="kind" data-i="kModel"></small><small data-i="aatHint"></small></div>
+      <div class="knob">
+        <label for="rat"><span data-i="ra"></span> <output id="o-rat"></output></label>
+        <input type="range" id="rat" min="30" max="200" step="5">
+        <small class="kind" data-i="kModel"></small><small data-i="ratHint"></small></div>
+      <button class="btn" id="reset" type="button" style="margin-top:10px" data-i="reset"></button>
+    </section>
+
+    <div style="display:grid;gap:22px;min-width:0">
+      <section class="frame" aria-labelledby="h-erg"><i class="c1"></i><i class="c2"></i>
+        <h2 id="h-erg" data-i="result"></h2>
+        <p class="hint" id="period"></p>
+        <div class="kpis">
+          <div class="kpi"><span class="v" id="k-save">–</span><span class="k" id="k-save-l"></span></div>
+          <div class="kpi"><span class="v" id="k-year">–</span><span class="k" data-i="kYear"></span></div>
+          <div class="kpi"><span class="v" id="k-share">–</span><span class="k" data-i="kShare"></span></div>
+        </div>
+        <div class="chartbox" id="chartbox"></div>
+        <div class="legend" id="legend"></div>
+      </section>
+
+      <section class="frame" aria-labelledby="h-tab"><i class="c1"></i><i class="c2"></i>
+        <h2 id="h-tab" data-i="dest"></h2>
+        <p class="hint" data-i="destHint"></p>
+        <div class="tablebox"><table>
+          <thead><tr><th data-i="thIn"></th><th data-i="thDest"></th><th data-i="thFlights"></th><th>km</th><th data-i="thRailHbf"></th><th data-i="thRailAp"></th><th data-i="thTransfer"></th><th data-i="thDoor"></th><th data-i="thCo2"></th></tr></thead>
+          <tbody id="tbody"></tbody>
+        </table></div>
+        <p class="hint" id="nofl"></p>
+      </section>
+
+      <section class="frame" aria-labelledby="h-prot"><i class="c1"></i><i class="c2"></i>
+        <h2 id="h-prot" data-i="protocol"></h2>
+        <p class="hint" data-i="protocolHint"></p>
+        <textarea id="proto" readonly aria-label="Protokoll / Protocol"></textarea>
+        <div style="margin-top:8px"><button class="btn" id="copy" type="button" data-i="copy"></button> <span id="copied" class="hint"></span></div>
+      </section>
+    </div>
+  </div>
+
+  <p class="foot" data-i="method"></p>
+
+  <footer class="bottom">
+    <div class="logos">
+      <img src="data:image/png;base64,/*__CL_LOGO__*/" alt="CreatorLab">
+      <a href="https://www.ph-gmuend.de" target="_blank" rel="noopener" class="ph-link">/*__PH_LOGO__*/</a>
+    </div>
+    <div class="credits"><p class="foot" data-i="credit"></p>
+    <p class="foot" data-i="ai"></p></div>
+  </footer>
+</div>
+
+<script>
+const DATA = /*__DATEN__*/null;
+const $ = id => document.getElementById(id);
+const IDS = ["crit","thr","dm","ms","acc","tr","lf","fe","nc","rg","rd","aa","ra","aat","rat"];
+const TAXI_HALF = 7.5;  // half of the 15-min taxi time, as in the analysis
+const excluded = new Set(), trOverride = new Map();
+let LANG = "de";
+try { if (location.hash === "#en") LANG = "en"; } catch {}
+
+const NAMES_EN = {"Frankfurt":"Frankfurt","München":"Munich","Köln/Bonn":"Cologne/Bonn","Zürich":"Zurich","Genf":"Geneva","Prag":"Prague","Brüssel":"Brussels",
+  "Hannover":"Hannover","Wien":"Vienna","Kopenhagen":"Copenhagen","Düsseldorf":"Düsseldorf","Nürnberg":"Nuremberg","Mailand":"Milan",
+  "Venedig":"Venice","Nizza":"Nice","Luxemburg":"Luxembourg","Dortmund":"Dortmund","Lyon":"Lyon"};
+const T = {
+ de:{eyebrow:"Technikfolgenabschätzung · Abflüge ab Stuttgart (EDDS)", title:"Wie viel CO₂ spart die Bahn statt dem Flug?",
+  lead:"Die Daten stammen aus der Auswertung tatsächlich geflogener Flüge (ADS-B-Daten des OpenSky Network, Treibstoffmodell OpenAP). Du veränderst nur die Annahmen. Jede Annahme musst du begründen.",
+  tagData:"Datenbasis", tagDemo:"Beispieldaten",
+  bannerData:(p,n)=>`Analyse der Abflüge ab Stuttgart${p?", "+p:""} (${n} Linien- und Charterflüge). Die Daten sind vorgegeben; verändert werden nur die Annahmen.`,
+  bannerDemo:"Synthetische Flüge zum Ausprobieren. Die Fassung für die Lehrveranstaltung wird aus der Analyse der echten OpenSky-Daten gebaut.",
+  assumptions:"Annahmen", assumptionsHint:"Startwerte = Basisannahmen der Analyse.",
+  kindsHint:"Jede Annahme ist markiert: MODELL = technische Annahme mit Literaturbereich; SZENARIO = mögliches Verhalten; RAHMUNG = wertgeladene Festlegung, die du begründen musst (durchgezogener Rahmen). Die Daten selbst sind fest.",
+  kModel:"Modellannahme", kScen:"Szenario", kFrame:"Rahmung (wertgeladen)", kModelFrame:"Modell + Rahmung (Bilanzierung)",
+  crit:"Wann gilt die Bahn als Alternative?", critIV:"Fahrzeit im Zug bis zur Grenze", critDD:"Tür zu Tür höchstens so viel länger als der Flug", critIVs:"Fahrzeit", critDDs:"Tür zu Tür",
+  critHint:"Die Analyse nutzt die Fahrzeit im Zug (4 h) als technische Obergrenze. Tür zu Tür ist näher an der Reiseentscheidung, hängt aber an den Zugangszeiten.",
+  critIVp:t=>`Bahnfahrt im Zug höchstens ${t}`, critDDp:m=>`Bahn Tür zu Tür höchstens ${m} min länger als der Flug`,
+  dm:"Zumutbare Mehrzeit Tür zu Tür", dmHint:"Wie viel länger darf die Bahnreise dauern? Das ist eine Wertentscheidung.",
+  acc:"Bilanzierung der Einsparung", acc0:"Durchschnitt: anteilig je Fluggast", acc1:"Nur ganz gestrichene Flüge", acc2:"Keine Reaktion der Airlines",
+  acc0s:"anteilig", acc1s:"ganze Flüge", acc2s:"keine Reaktion",
+  accHint:"Steigen nur einige um, fliegt das Flugzeug trotzdem. Eingespart wird erst, wenn Flüge entfallen. „Ganze Flüge“: je Ziel nur volle gestrichene Flüge; „keine Reaktion“: es bleibt nur das zusätzliche CO₂ der Bahn.",
+  gWho:"Wer wird ersetzt?", thr:"Bahn ersetzt Flüge bis", thrHint:"Fahrzeit im Zug, für beide Gruppen: zum Hauptbahnhof (Stadtreise) bzw. zum Flughafenbahnhof (Umsteiger).",
+  ms:"Anteil, der wirklich umsteigt", msHint:"Manche fahren stattdessen Auto oder verzichten nicht auf den Flug.",
+  tr:"Umsteiger an Drehkreuzen", trHint:"Anteil der Passagiere, die am Ziel einen Anschlussflug nehmen. Gilt für alle Drehkreuze, solange du in der Tabelle keinen eigenen Wert einträgst.",
+  gAir:"Flugzeug", lf:"Auslastung (Sitzladefaktor)", fe:"Fehler des Treibstoffmodells", nc:"Faktor für Nicht-CO₂-Effekte", ncHint:"Kondensstreifen und Stickoxide wärmen zusätzlich. Lee et al. (2021): in der Summe aller Luftfahrteffekte etwa das Dreifache des CO₂-Antriebs, als Emissionskennzahl (GWP100) etwa 1,7; für einzelne Flüge sehr unsicher. Die Analyse rechnet nur CO₂ (1).",
+  gRail:"Bahn", rg:"CO₂ der Bahn je Personen-km", rgHint:"29 g = Durchschnitt Fernverkehr (UBA). Niedrig mit Ökostrom (marktbasiert), höher mit Strommix (standortbasiert); für zusätzliche Fahrgäste in nicht vollen Zügen nahe null.", rd:"Umweg der Schiene gegenüber Luftlinie",
+  gCity:"Reisezeit Stadtreise", aa:"Zugang Flug", ra:"Zugang Bahn", aaHint:"Anfahrt zum Flughafen, Sicherheit, Weg vom Zielflughafen in die Stadt.",
+  gTransfer:"Reisezeit Umsteiger", aatHint:"Anfahrt, Sicherheit in Stuttgart, Mindestumsteigezeit am Drehkreuz.", ratHint:"Anfahrt zum Hbf, Check-in und Sicherheit am Drehkreuz, Puffer.",
+  reset:"Basisannahmen wiederherstellen", result:"Ergebnis",
+  nofl:(l)=>`Ziele mit Bahnverbindung, aber ohne Linien- oder Charterflug im Zeitraum (darum nicht in der Tabelle): ${l}. Warum es dorthin keinen Linienflug gab, zeigen die Daten nicht: eine Frage für die Diskussion.`,
+  privN:(n)=>`${n} Privatflug${n>1?"e":""}`,
+  period:(p,d,n,o,od,r)=>`${p?p+", ":""}${d} Tage, ${n} Linien- und Charterflüge. Davon ${o} Flüge zu ${od} Zielen ohne Bahnalternative (Urlaubs- und Fernziele); unten die ${r} Ziele mit Bahnverbindung.`,
+  kSave:d=>`t CO₂ eingespart in ${d} Tagen`, kYear:"t pro Jahr, rein rechnerisch (× 52, nur zur Veranschaulichung)", kShare:"der Fluggäste könnten Bahn fahren",
+  lgAir:"Flug, Stadtreise", lgRail:"Bahn Hbf → Hbf", lgAirT:"Flug mit Anschluss", lgRailT:"Bahn → Flughafenbahnhof", lgBold:"Schwarz: zählt zur Verlagerung",
+  dest:"Ziele im Einzelnen", destHint:"Häkchen entfernen, um ein Ziel bewusst herauszunehmen. Den Umsteigeranteil kannst du je Drehkreuz anpassen.",
+  thIn:"Mit", thDest:"Ziel", thFlights:"Flüge", thRailHbf:"Bahn zum Hbf", thRailAp:"Bahn zum Flughafen", thTransfer:"Umsteiger", thDoor:"Tür–Tür Flug / Bahn",
+  thCo2:"kg CO₂/Person Flug / Bahn", hub:"Drehkreuz", shifted:"verlagert", noData:"keine Verbindungsdaten", transferRow:"Umsteiger",
+  protocol:"Für das Protokoll", protocolHint:"Kopiere deine Annahmen und das Ergebnis in deine Stellungnahme und begründe jede Annahme.",
+  copy:"Text kopieren", copied:"Kopiert.", copyFail:"Text ist markiert: mit Strg+C bzw. ⌘+C kopieren.", days:"Tage", none:"keine", ofPax:"der Fluggäste",
+  proto:(x)=>`Datenbasis: ${x.src}, ${x.d} Tage, ${x.n} Linienflüge ab Stuttgart
+Annahmen:
+- Kriterium: ${x.crit} (Stadtreise zum Hbf, Umsteiger zum Flughafenbahnhof)
+- Anteil, der wirklich umsteigt: ${x.ms}; Bilanzierung: ${x.acc}
+- Umsteiger an Drehkreuzen: ${x.tr}${x.own?" (eigene Werte: "+x.own+")":""}
+- Auslastung Flug ${x.lf}, Modellfehler ${x.fe}, Nicht-CO2-Faktor ${x.nc}
+- Bahn ${x.rg} g CO2/Pkm, Umwegfaktor ${x.rd}
+- Zugang Stadtreise: Flug ${x.aa} min, Bahn ${x.ra} min; Umsteiger: Flug ${x.aat} min, Bahn ${x.rat} min
+Verlagerte Ziele: ${x.inc}
+Ergebnis: ${x.save} t CO2 in ${x.d} Tagen (rein rechnerisch × 52: ${x.year} t pro Jahr; eine Oktoberwoche ist nicht repräsentativ); ${x.share} der Fluggäste betroffen.
+Begründung meiner Annahmen: …`,
+  srcReal:"Analyse OpenSky-ADS-B", srcDemo:"BEISPIELDATEN (synthetisch)",
+  method:"Rechnung: CO₂ Flug = Treibstoff × 3,16 × Modellfehler × Nicht-CO₂-Faktor; pro Person geteilt durch Sitze × Auslastung (gepoolt über alle Linienflüge eines Ziels). Tür zu Tür Flug = Median der Flugdauer + 7,5 min Rollen + Zugang. CO₂ Bahn = Luftlinie × Umwegfaktor × g/Pkm. Je Ziel werden Stadtreisende (Bahn Stuttgart Hbf → Hauptbahnhof) und Umsteiger an Drehkreuzen (Bahn Stuttgart Hbf → Flughafenbahnhof) unterschieden. Eine Gruppe zählt zur Verlagerung, wenn sie das gewählte Kriterium erfüllt (Fahrzeit im Zug oder Tür zu Tür). Einsparung = Anteil verlagerbarer Fluggäste × (CO₂ der Flüge − CO₂ derselben Personen in der Bahn) × Anteil, der umsteigt. Privat-, Fracht- und Militärflüge sind ausgenommen. Bahnzeiten: DB-Auskunft, Mo. 2.11.2026.",
+  credit:"Konzept und Idee: Prof. Dr. Hannes Helmut Nepper · CreatorLab, PH Schwäbisch Gmünd · creatorlab-edu.net",
+  ai:"Programmiert mit Unterstützung des KI-Assistenten Claude (Anthropic); Berechnungen und Daten vom Autor geprüft."},
+ en:{eyebrow:"Technology assessment · Departures from Stuttgart (EDDS)", title:"How much CO₂ does rail save instead of flying?",
+  lead:"The data come from an analysis of flights actually flown (ADS-B data from the OpenSky Network, fuel model OpenAP). You change only the assumptions, and you must justify each one.",
+  tagData:"Data", tagDemo:"Sample data",
+  bannerData:(p,n)=>`Analysis of departures from Stuttgart${p?", "+p:""} (${n} scheduled and charter flights). The data are fixed; only the assumptions can be changed.`,
+  bannerDemo:"Synthetic flights for trying out the tool. The classroom version is built from the analysis of real OpenSky data.",
+  assumptions:"Assumptions", assumptionsHint:"Starting values = baseline assumptions of the analysis.",
+  kindsHint:"Each assumption is marked: MODEL = technical assumption with a range from the literature; SCENARIO = possible behaviour; FRAMING = value-laden choice you must justify (solid frame). The data themselves are fixed.",
+  kModel:"Model assumption", kScen:"Scenario", kFrame:"Framing (value-laden)", kModelFrame:"Model + framing (accounting)",
+  crit:"When does rail count as an alternative?", critIV:"In-vehicle rail time up to the threshold", critDD:"Door to door at most this much longer than air", critIVs:"in-vehicle", critDDs:"door to door",
+  critHint:"The analysis uses in-vehicle rail time (4 h) as a technical upper bound. Door to door is closer to the travel decision but depends on the access times.",
+  critIVp:t=>`in-vehicle rail time at most ${t}`, critDDp:m=>`rail door to door at most ${m} min longer than air`,
+  dm:"Acceptable extra door-to-door time", dmHint:"How much longer may the rail trip take? This is a value judgement.",
+  acc:"Accounting of the saving", acc0:"Average: pro rata per passenger", acc1:"Only whole flights cancelled", acc2:"No airline response",
+  acc0s:"pro rata", acc1s:"whole flights", acc2s:"no response",
+  accHint:"If only some passengers switch, the aircraft still flies. Emissions fall only when flights are cancelled. “Whole flights”: per destination only complete cancelled flights; “no response”: only the extra rail CO₂ remains.",
+  gWho:"Who is replaced?", thr:"Rail replaces flights up to", thrHint:"In-vehicle time, for both groups: to the main station (city trip) or to the airport station (connecting passengers).",
+  ms:"Share who actually switch", msHint:"Some travellers drive instead or keep flying.",
+  tr:"Connecting passengers at hubs", trHint:"Share of passengers who take an onward flight at the destination. Applies to all hubs unless you enter a value in the table.",
+  gAir:"Aircraft", lf:"Load factor", fe:"Fuel model error", nc:"Non-CO₂ factor", ncHint:"Contrails and nitrogen oxides add warming. Lee et al. (2021): for aviation as a whole about three times the CO₂ forcing, as an emission metric (GWP100) about 1.7; very uncertain for single flights. The analysis counts CO₂ only (1).",
+  gRail:"Rail", rg:"Rail CO₂ per passenger-km", rgHint:"29 g = long-distance average (UBA). Low with green electricity (market-based), higher with the grid mix (location-based); near zero for extra passengers on trains that are not full.", rd:"Rail detour vs. great-circle distance",
+  gCity:"Travel time, city trip", aa:"Access, air", ra:"Access, rail", aaHint:"Travel to the airport, security, transfer from the destination airport to the city.",
+  gTransfer:"Travel time, connecting", aatHint:"Access, security in Stuttgart, minimum connecting time at the hub.", ratHint:"Travel to the main station, check-in and security at the hub, buffer.",
+  reset:"Restore baseline", result:"Result",
+  nofl:(l)=>`Destinations with a rail link but no scheduled or charter flight in the period (hence not in the table): ${l}. Why there was no scheduled flight is not visible in the data: a question for discussion.`,
+  privN:(n)=>`${n} private flight${n>1?"s":""}`,
+  period:(p,d,n,o,od,r)=>`${p?p+", ":""}${d} days, ${n} scheduled and charter flights, of which ${o} flights to ${od} destinations without a rail alternative (leisure and long-distance); below the ${r} destinations with a rail link.`,
+  kSave:d=>`t CO₂ saved in ${d} days`, kYear:"t per year, illustrative only (× 52)", kShare:"of passengers could take the train",
+  lgAir:"Air, city trip", lgRail:"Rail, main station", lgAirT:"Air, connecting", lgRailT:"Rail to airport station", lgBold:"Black: counts as shifted",
+  dest:"Destinations", destHint:"Untick a destination to exclude it deliberately. The connecting share can be set per hub.",
+  thIn:"In", thDest:"Destination", thFlights:"Flights", thRailHbf:"Rail to main stn.", thRailAp:"Rail to airport", thTransfer:"Connecting", thDoor:"Door-to-door air / rail",
+  thCo2:"kg CO₂/pax air / rail", hub:"Hub", shifted:"shifted", noData:"no connection data", transferRow:"Connecting",
+  protocol:"Protocol", protocolHint:"Copy your assumptions and the result into your written judgement and justify each assumption.",
+  copy:"Copy text", copied:"Copied.", copyFail:"Text is selected: copy with Ctrl+C or ⌘+C.", days:"days", none:"none", ofPax:"of passengers",
+  proto:(x)=>`Data: ${x.src}, ${x.d} days, ${x.n} scheduled flights from Stuttgart
+Assumptions:
+- Criterion: ${x.crit} (city trip to main station, connecting passengers to airport station)
+- Share who actually switch: ${x.ms}; accounting: ${x.acc}
+- Connecting passengers at hubs: ${x.tr}${x.own?" (own values: "+x.own+")":""}
+- Load factor ${x.lf}, fuel model error ${x.fe}, non-CO2 factor ${x.nc}
+- Rail ${x.rg} g CO2/pkm, detour factor ${x.rd}
+- Access, city trip: air ${x.aa} min, rail ${x.ra} min; connecting: air ${x.aat} min, rail ${x.rat} min
+Shifted destinations: ${x.inc}
+Result: ${x.save} t CO2 in ${x.d} days (illustrative × 52: ${x.year} t per year; one October week is not representative); ${x.share} of passengers affected.
+Justification of my assumptions: …`,
+  srcReal:"OpenSky ADS-B analysis", srcDemo:"SAMPLE DATA (synthetic)",
+  method:"Calculation: air CO₂ = fuel × 3.16 × model error × non-CO₂ factor; per passenger divided by seats × load factor (pooled over all scheduled flights to a destination). Door-to-door air = median flight time + 7.5 min taxi + access. Rail CO₂ = great-circle distance × detour factor × g/pkm. For each destination, city travellers (rail Stuttgart Hbf → main station) and passengers connecting at hubs (rail Stuttgart Hbf → airport station) are distinguished. A group counts as shifted if it meets the chosen criterion (in-vehicle time or door to door). Saving = shiftable share of passengers × (CO₂ of the flights − CO₂ of the same people by rail) × share who switch. Private, cargo and military flights are excluded. Rail times: Deutsche Bahn journey planner, Monday 2 November 2026.",
+  credit:"Concept and idea: Prof. Dr. Hannes Helmut Nepper · CreatorLab, University of Education Schwäbisch Gmünd · creatorlab-edu.net",
+  ai:"Programmed with the support of the AI assistant Claude (Anthropic); calculations and data verified by the author."}
+};
+const L = () => T[LANG];
+const nf0 = () => new Intl.NumberFormat(LANG==="de"?"de-DE":"en-GB",{maximumFractionDigits:0});
+const nf1 = () => new Intl.NumberFormat(LANG==="de"?"de-DE":"en-GB",{maximumFractionDigits:1,minimumFractionDigits:1});
+const nm = n => LANG==="en" ? (NAMES_EN[n]||n) : n;
+const hm = m => { m = Math.round(m); return `${Math.floor(m/60)}:${String(m%60).padStart(2,"0")} h`; };
+const pct = v => Math.round(v*100)+" %";
+const dec = (v,d=2) => (+v).toFixed(d).replace(".", LANG==="de"?",":".");
+const FMT = {crit:v=>+v?L().critDDs:L().critIVs, dm:v=>"+ "+v+" min", acc:v=>[L().acc0s,L().acc1s,L().acc2s][+v], thr:hm, ms:pct, tr:pct, lf:pct, fe:v=>(v>=1?"+":"−")+Math.abs(Math.round((v-1)*100))+" %",
+  nc:v=>"× "+dec(v,1), rg:v=>v+" g", rd:v=>"× "+dec(v), aa:v=>v+" min", ra:v=>v+" min", aat:v=>v+" min", rat:v=>v+" min"};
+
+function setBasis(){ const b = {crit:0, dm:60, acc:0, ...DATA.basis}; IDS.forEach(i => { if (b[i] != null) $(i).value = b[i]; }); }
+function params(){ const p={}; IDS.forEach(i=>p[i]=parseFloat($(i).value)); return p; }
+
+function rechnen(){
+  const p = params();
+  const rows = DATA.rows.map(r => {
+    const pax = r.seats * p.lf, co2Air = r.fuel * 3.16 * p.fe * p.nc;
+    const airPP = co2Air / pax, railPP = r.km * p.rd * p.rg / 1000;
+    const railHub = r.hub ? r.railHub : r.rail;  // Drehkreuz ohne Bahnzeit zum Flughafen: Umsteiger nicht verlagerbar
+    const u = r.hub ? (trOverride.has(r.icao) ? trOverride.get(r.icao) : p.tr) : 0;
+    const doorAir = r.dur + TAXI_HALF + p.aa, doorRail = r.rail==null ? null : r.rail + p.ra;
+    const doorAirT = r.dur + TAXI_HALF + p.aat, doorRailT = railHub==null ? null : railHub + p.rat;
+    // criterion: in-vehicle rail time <= threshold, or door-to-door rail <= door-to-door air + margin
+    const cityOK = +p.crit ? (doorRail != null && doorRail <= doorAir + p.dm) : (r.rail != null && r.rail <= p.thr);
+    const hubOK = r.hub && railHub != null && (+p.crit ? doorRailT <= doorAirT + p.dm : railHub <= p.thr);
+    const share = (1-u)*(cityOK?1:0) + u*(hubOK?1:0);
+    const inc = share > 0 && !excluded.has(r.icao);
+    // accounting: 0 = average (pro rata), 1 = only whole flights cancelled (per route), 2 = no capacity response
+    const shifted = inc ? share * p.ms : 0, railKg = shifted * pax * railPP;
+    const save = !inc ? 0 : (+p.acc === 0 ? (shifted * co2Air - railKg) / 1000
+      : +p.acc === 1 ? (Math.floor(shifted * r.n + 1e-9) * co2Air / r.n - railKg) / 1000 : -railKg / 1000);
+    return {...r, pax, co2Air, airPP, railPP, railHub, u, cityOK, hubOK, share, inc, save,
+      doorAir, doorRail, doorAirT, doorRailT};
+  });
+  const oth = DATA.other || {n:0, seats:0, dests:0};
+  const totPax = rows.reduce((s,r)=>s+r.pax,0) + oth.seats * p.lf;
+  const incPax = rows.filter(r=>r.inc).reduce((s,r)=>s+r.pax*r.share,0);
+  return {p, rows, totPax, incPax, oth, save: rows.reduce((s,r)=>s+r.save,0), nFlights: rows.reduce((s,r)=>s+r.n,0) + oth.n};
+}
+
+const mk = {
+  air:(x,y,o)=>`<circle cx="${x}" cy="${y}" r="5.5" fill="${o?'#0a0a0a':'#9a9a9a'}"/>`,
+  rail:(x,y,o)=>`<rect x="${x-5}" y="${y-5}" width="10" height="10" fill="${o?'#0a0a0a':'#9a9a9a'}"/>`,
+  airT:(x,y,o)=>`<circle cx="${x}" cy="${y}" r="4.5" fill="#ffffff" stroke="${o?'#0a0a0a':'#9a9a9a'}" stroke-width="2"/>`,
+  railT:(x,y,o)=>`<rect x="${x-4.5}" y="${y-4.5}" width="9" height="9" fill="#ffffff" stroke="${o?'#0a0a0a':'#9a9a9a'}" stroke-width="2"/>`
+};
+function chart(R){
+  const W = 780, rowH = 30, top = 22, left = 120, right = 20, H = top + R.rows.length*rowH + 30;
+  const vals = R.rows.flatMap(r => [r.doorAir, r.doorRail||0, r.hub ? r.doorAirT : 0, r.hub ? (r.doorRailT||0) : 0]);
+  const xMax = Math.ceil(Math.max(...vals)/60), x = h => left + (W-left-right)*h/xMax;
+  let s = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:560px" role="img" aria-label="door-to-door" xmlns="http://www.w3.org/2000/svg">`;
+  for (let h=0; h<=xMax; h++) s += `<line class="axis" x1="${x(h)}" x2="${x(h)}" y1="${top-8}" y2="${H-26}"/><text class="tick" x="${x(h)}" y="${H-10}" text-anchor="middle">${h} h</text>`;
+  R.rows.forEach((r,i) => {
+    const y0 = top + i*rowH + rowH/2, yc = r.hub ? y0-6 : y0, yt = y0+6;
+    const oc = r.inc && r.cityOK, ot = r.inc && r.hubOK;
+    s += `<text x="${left-10}" y="${y0+4}" text-anchor="end" font-size="13" font-weight="${r.inc?600:400}" ${r.inc?'':'fill="#5c5c5c"'}>${nm(r.name)}</text>`;
+    if (r.doorRail!=null) s += `<line x1="${x(r.doorAir/60)}" x2="${x(r.doorRail/60)}" y1="${yc}" y2="${yc}" stroke="#d4d4d4" stroke-width="3"/>` + mk.rail(x(r.doorRail/60), yc, oc);
+    s += mk.air(x(r.doorAir/60), yc, oc);
+    if (r.hub && r.doorRailT!=null) s += `<line x1="${x(r.doorAirT/60)}" x2="${x(r.doorRailT/60)}" y1="${yt}" y2="${yt}" stroke="#d4d4d4" stroke-width="2" stroke-dasharray="4 3"/>` + mk.railT(x(r.doorRailT/60), yt, ot) + mk.airT(x(r.doorAirT/60), yt, ot);
+  });
+  return s + `</svg>`;
+}
+const icon = f => `<svg width="12" height="12" viewBox="0 0 12 12">${f(6,6,true)}</svg>`;
+
+function texte(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-i]").forEach(el => { const v = L()[el.dataset.i]; if (typeof v === "string") el.textContent = v; });
+  $("lang-de").setAttribute("aria-pressed", LANG==="de"); $("lang-en").setAttribute("aria-pressed", LANG==="en");
+  seqTexts();
+  $("banner").classList.toggle("demo", !!DATA.demo);
+  $("banner-tag").textContent = DATA.demo ? L().tagDemo : L().tagData;
+  $("banner-text").textContent = DATA.demo ? L().bannerDemo : L().bannerData(DATA.period, DATA.nFlights);
+  $("legend").innerHTML = [[mk.air,"lgAir"],[mk.rail,"lgRail"],[mk.airT,"lgAirT"],[mk.railT,"lgRailT"]]
+    .map(([f,k]) => `<span>${icon(f)}${L()[k]}</span>`).join("") + `<span>${L().lgBold}</span>`;
+}
+
+function zeichnen(){
+  IDS.forEach(i => $("o-"+i).textContent = FMT[i]($(i).value));
+  $("knob-thr").style.display = +$("crit").value ? "none" : ""; $("knob-dm").style.display = +$("crit").value ? "" : "none";
+  const R = rechnen(), f0 = nf0(), f1 = nf1();
+  $("period").textContent = L().period(DATA.period, DATA.days, f0.format(R.nFlights), f0.format(R.oth.n), R.oth.dests, R.rows.length);
+  $("k-save").textContent = f0.format(R.save);
+  $("k-save-l").textContent = L().kSave(DATA.days);
+  $("k-year").textContent = f0.format(R.save * 365 / DATA.days);
+  $("k-share").textContent = Math.round(100 * R.incPax / Math.max(R.totPax,1)) + " %";
+  const nf = DATA.noFlight || [];
+  $("nofl").textContent = nf.length ? L().nofl(nf.map(z => `${nm(z.name)} (${z.rail} min${z.privat ? ", " + L().privN(z.privat) : ""})`).join(", ")) : "";
+  $("tbody").innerHTML = R.rows.map(r => `<tr class="${r.inc?"":"off"}">
+    <td><input type="checkbox" data-icao="${r.icao}" aria-label="${nm(r.name)}" ${r.share>0?"":"disabled"} ${r.inc?"checked":""}></td>
+    <td>${nm(r.name)}${r.hub?`<span class="pill">${L().hub}</span>`:""}${r.inc?`<span class="pill in">${L().shifted}</span>`:""}</td>
+    <td class="num">${r.n}</td><td class="num">${f0.format(r.km)}</td>
+    <td class="num">${r.rail==null?"–":hm(r.rail)}<span class="st">${r.railStation||""}</span></td>
+    <td class="num">${r.hub ? (r.railHub!=null ? hm(r.railHub)+`<span class="st">${r.hubStation||""}</span>` : `–<span class="st">${L().noData}</span>`) : "–"}</td>
+    <td>${r.hub ? `<input class="pct" type="number" min="0" max="100" step="5" data-tr="${r.icao}" value="${Math.round(r.u*100)}" aria-label="${L().thTransfer} ${nm(r.name)}"> %` : "–"}</td>
+    <td class="num">${hm(r.doorAir)} / ${r.doorRail==null?"–":hm(r.doorRail)}${r.hub && r.doorRailT!=null ? `<span class="st">${L().transferRow} ${hm(r.doorAirT)} / ${hm(r.doorRailT)}</span>` : ""}</td>
+    <td class="num">${f0.format(r.airPP)} / ${f1.format(r.railPP)}<span class="st">${r.railPP>0?"× "+f0.format(r.airPP/r.railPP):""}</span></td></tr>`).join("");
+  $("chartbox").innerHTML = chart(R);
+  LASTR = R;
+  writeProto();
+  seqUpdate();
+}
+let LASTR = null;
+function writeProto(){
+  const R = LASTR; if (!R) return;
+  const p = R.p, f0 = nf0();
+  const inc = R.rows.filter(r=>r.inc).map(r=>`${nm(r.name)} (${Math.round(r.share*100)} % ${L().ofPax})`).join(", ") || L().none;
+  const own = [...trOverride].map(([k,v]) => `${nm(DATA.rows.find(r=>r.icao===k).name)} ${Math.round(v*100)} %`).join(", ");
+  $("proto").value = L().proto({src: DATA.demo ? L().srcDemo : L().srcReal + (DATA.period ? ", " + DATA.period : ""), d: DATA.days, n: R.nFlights,
+    crit: +p.crit ? L().critDDp(p.dm) : L().critIVp(hm(p.thr)), acc: FMT.acc(p.acc), thr: hm(p.thr), ms: pct(p.ms), tr: pct(p.tr), own, lf: pct(p.lf), fe: FMT.fe(p.fe), nc: FMT.nc(p.nc), rg: p.rg, rd: FMT.rd(p.rd),
+    aa: p.aa, ra: p.ra, aat: p.aat, rat: p.rat, inc, save: f0.format(R.save), year: f0.format(R.save*365/DATA.days),
+    share: Math.round(100*R.incPax/Math.max(R.totPax,1)) + " %"}) + "\n\n" + stepsProto();
+}
+
+/* ------------------------------------------------------------------ Unterrichtsablauf (didaktisches Design) */
+const SEQ = {
+ de:{seqTitle:"Seminarbaustein in sechs Handlungssequenzen", seqHint:"Das didaktische Design des Seminarbausteins: Jede Handlungssequenz ist einer Phase der Technikbewertung (VDI 3780) und einem Problemlöseschritt zugeordnet. Deine Antworten landen automatisch im Protokoll.",
+  set1:"Lektüre zu Hause, dann Termin 1 (90 min)", set2:"Termin 2 (90 min), dann Stellungnahme zu Hause",
+  metaSet:"Wo", metaTA:"Phase der Technikbewertung (VDI 3780)", metaPS:"Problemlöseschritt",
+  prev:"← Zurück", next:"Weiter →", toTool:"Zu den Annahmen", toProt:"Zum Protokoll",
+  steps:[
+   {n:"1 Frage", s:"Aussagen sortieren", set:"Zu Hause, dann Termin 1", ta:"Problemdefinition", ps:"Technisches Problem erkennen",
+    task:"Lies vor Termin 1 zwei aktuelle Presseartikel zum Verbot von Kurzstreckenflügen. Sortiere die Aussagen unten: Lässt sie sich mit Beobachtungsdaten prüfen (empirisch), hängt sie an Modellannahmen (modellbasiert) oder ist sie ein Werturteil (normativ)? Formuliere danach eine Leitfrage, die sich mit den Daten beantworten lässt."},
+   {n:"2 Daten", s:"Datenbasis verstehen", set:"Termin 1", ta:"Information", ps:"Informationen generieren",
+    task:"Sieh dir in der Live-Karte von OpenSky an, woher die Daten kommen. Der Trichter zeigt, was aus den aufgezeichneten Abflügen wird. Notiere, wo Lücken und Entscheidungen der Analyse liegen."},
+   {n:"3 Modell", s:"Selbst rechnen", set:"Termin 1", ta:"Folgenabschätzung", ps:"Informationen generieren",
+    task:"Rechne den CO₂-Ausstoß pro Person für einen Flug selbst: Verbrauch pro Stunde × Flugdauer × 3,16 ÷ (Sitze × Auslastung). Vergleiche mit dem Wert des Werkzeugs und erkläre den Unterschied."},
+   {n:"4 Vergleich", s:"Fair vergleichen", set:"Termin 1", ta:"Folgenabschätzung", ps:"Informationen generieren",
+    task:"Vergleiche Tür-zu-Tür-Zeit und CO₂ pro Person für ein Ziel. Unterscheide Stadtreisende und Umsteiger am Drehkreuz. Welcher Vergleich ist für wen fair?"},
+   {n:"5 Test", s:"Annahmen prüfen", set:"Termin 2", ta:"Folgenabschätzung", ps:"Entscheidungen treffen",
+    task:"Ordne jede der fünf Analysefragen ein: Beruht das Ergebnis auf Beobachtung (empirisch), folgt es aus dem Modell (modellbasiert) oder aus gesetzten Szenarien (Szenario)? Verändere dann links mindestens drei Annahmen, darunter eine Rahmung, und halte jedes Szenario fest. Formuliere deine Aussage als Spanne statt als einzelne Zahl."},
+   {n:"6 Bewerten", s:"Urteilen", set:"Termin 2, Stellungnahme zu Hause", ta:"Bewertung und Entscheidung", ps:"Entscheidungen treffen · Kennen und Verstehen nachhaltiger Entwicklung",
+    task:"Übernimm eine Rolle, gewichte die Werte nach VDI 3780 und beziehe Position. Schreibe zu Hause eine einseitige Stellungnahme und hänge das Protokoll an. Prüfe am Ende: Würdest du nach dem Urteil eine Annahme anders setzen?"}],
+  claims:[["Ein Flug Stuttgart–Berlin verursacht pro Person mehr CO₂ als die Bahnfahrt.","m"],["In der Untersuchungswoche flogen 28 Linienflüge nach Berlin.","e"],["Kurzstreckenflüge sollten verboten werden.","n"],
+   ["Die meisten Fluggäste nach München steigen dort in einen Langstreckenflug um.","e"],["Ein Verbot wäre gegenüber Geschäftsreisenden unfair.","n"],
+   ["Mit der Bahn dauert die Reise nach Hamburg länger als mit dem Flugzeug.","e"],["Privatjets sind ein Luxus, den sich die Gesellschaft nicht leisten sollte.","n"],
+   ["Ein Verbot würde die Emissionen des Flughafens Stuttgart kaum senken.","m"],["Klimaschutz ist wichtiger als kurze Reisezeiten.","n"]],
+  emp:"Empirisch", mod:"Modellbasiert", nor:"Normativ", showSol:"Lösung zeigen", hideSol:"Lösung ausblenden", right:"richtig", wrong:"eher",
+  qLabel:"Deine Leitfrage", qPh:"z. B. Wie viel CO₂ ließe sich pro Woche sparen, wenn alle Flüge ab Stuttgart mit Bahnzeit unter vier Stunden ersetzt würden?",
+  fRaw:"Aufgezeichnete Abflüge", fDest:"mit geschätztem Zielflughafen", fSched:"Linien- und Charterflüge", fPriv:"Privat- und Geschäftsflüge",
+  fOther:"Fracht, Staat/Militär, unter 100 km", fBack:"Rückkehr nach Stuttgart (ausgeschlossen)", fNoAp:"Zielflughafen nicht in der Datenbank (ausgeschlossen)", fRail:"Linienflüge zu Zielen mit Bahnverbindung",
+  facts:(p,o)=>`Flugzeugtyp ohne eigenes Modell, ersatzweise ähnlicher Typ: ${p} % der Passagierflüge. Reiseflugdauer aus der ADS-B-Beobachtung: ${o} %.`,
+  liveMap:"OpenSky-Live-Karte öffnen", gapsLabel:"Lücken und Entscheidungen der Analyse", gapsPh:"z. B. Für jeden fünften Abflug ist kein Ziel bekannt …",
+  dest:"Ziel", kgph:"Verbrauch im Reiseflug (kg/h)", kgphHint:"Richtwert A320: etwa 2.500 kg/h", dur:"Flugdauer (Median)", seats:"Sitze pro Flug", lfNow:"Auslastung (aus den Annahmen)",
+  oFuel:"kg Treibstoff (deine Rechnung)", oOwn:"kg CO₂ pro Person (deine Rechnung)", oTool:"kg CO₂ pro Person (Werkzeug)", oDiff:"Abweichung",
+  whyLabel:"Warum weicht deine Rechnung ab?", whyPh:"z. B. Steigflug, Rollen am Boden, anderer Flugzeugtyp …",
+  cCity:"Stadtreise (Hbf → Hbf)", cHub:"Umsteiger (zum Flughafenbahnhof)", cCo2:"CO₂ pro Person", air:"Flug", rail:"Bahn", inLimit:"zählt zur Verlagerung", outLimit:"zählt nicht",
+  q4:["Wer reist hier eigentlich: Stadtreisende oder Umsteiger?","Welche Zeiten fehlen im Vergleich (Wartezeit, Arbeiten im Zug)?","Ist ein Umweg über die Bahn zum Drehkreuz zumutbar?"],
+  fairLabel:"Welcher Vergleich ist für wen fair?", hyp:"Fünf Analysefragen: Woher kommt das Ergebnis?", kindQ:"Einordnung", kindE:"empirisch", kindM:"modellbasiert", kindS:"Szenario", kindPick:"– wählen –", kindSol:"Lösung", kindWhy:["Gesetzte Annahmen (Schwelle, Umstieg) bestimmen das Ergebnis.","Beobachtete Flugzahlen und Fahrplanzeiten; wenige Ziele, nur explorativ.","Folgt aus dem Treibstoffmodell (Start und Steigflug fallen bei kurzen Strecken ins Gewicht).","Hängt an der angenommenen Auslastung (0,4 gegenüber 0,8).","Hängt an den gesetzten Zugangszeiten."],
+  h1:(h)=>`Technische Obergrenze: ${pc(h.pax)} der Linienpassagiere hätten ihr Ziel mit höchstens vier Stunden im Zug erreicht (${pc(h.co2)} des CO₂), ${n0(h.ref)} t pro Woche. Über alle Annahmen (10.000 Szenarien): ${n0(h.lo)}–${n0(h.hi)} t; Tür zu Tür (+60 min) nur ${n0(h.dd)} t.`,
+  h2:(h)=>`Kein klarer Zusammenhang zwischen Bahnzeit und Zahl der Linienflüge: ρ = ${d2(h.rho)} [${d2(h.lo)}; ${d2(h.hi)}]. Ohne Linienflug trotz schneller Bahn: ${h.none}.`,
+  h3:(h)=>`Je länger der Flug, desto weniger CO₂ pro km: unter 500 km ${n0(h.short)} g, darüber ${n0(h.long)} g pro Personen-km.`,
+  h4:(h)=>`Privatflüge: ${n0(h.priv)} g CO₂ pro Personen-km, ${d1(h.ratio)}-mal so viel wie Linienflüge (${n0(h.sched)} g). Bei gleicher Auslastung nur ${d1(h.eq)}-mal.`,
+  h5:(h)=>`Nur Linienflüge (${h.n} Ziele): Tür zu Tür ist die Bahn im Median ${n0(h.diff)} min langsamer, schneller bei ${h.faster} Zielen (${h.names}). Je nach Zugangszeit ${h.lo}–${h.hi} Ziele.`,
+  hNames:["F1 Verlagerung","F2 Bahn als Konkurrenz","F3 Kurzstrecke","F4 Privatflüge","F5 Tür zu Tür"],
+  keep:"Aktuelles Szenario festhalten", clear:"Szenarien löschen", scen:"Deine Szenarien", base:"Basisannahmen", span:(a,b)=>`Spanne deiner Szenarien: ${a}–${b} t CO₂ pro Woche`,
+  rangeLabel:"Deine Aussage als Spanne", rangePh:"z. B. Je nach Annahmen ließen sich 100 bis 220 t CO₂ pro Woche sparen, vor allem abhängig davon …",
+  role:"Deine Rolle", roles:["Pendler*in / Geschäftsreisende","Flughafen Stuttgart","Umweltverband","Anwohnende"],
+  pos:"Deine Position", poss:["Kurzstreckenflüge verbieten","Bahn ausbauen, Flüge erlauben","Andere Maßnahme (z. B. Privatflüge regulieren)","Nichts ändern"],
+  wTitle:"Gewichtung der Werte nach VDI 3780 (0 = unwichtig, 3 = sehr wichtig)",
+  vdi:["Funktionsfähigkeit","Wirtschaftlichkeit","Wohlstand","Sicherheit","Gesundheit","Umweltqualität","Persönlichkeitsentfaltung","Gesellschaftsqualität"],
+  briefLabel:"Kern deiner Stellungnahme", briefPh:"Ich empfehle …, weil … Dagegen spricht … Unsicher bleibt …",
+  pHead:"Arbeitsschritte", pS1:"1 Frage", pS2:"2 Daten", pS3:"3 Modell", pS4:"4 Vergleich", pS5:"5 Test", pS6:"6 Bewerten",
+  pClaims:(r,n)=>`Aussagen sortiert: ${r} von ${n} wie in der Lösung`, pQ:"Leitfrage", pGaps:"Lücken", pCalc:(d,o,t)=>`Eigene Rechnung ${d}: ${o} kg CO₂ pro Person, Werkzeug ${t} kg`, pWhy:"Erklärung",
+  pFair:(d)=>`Vergleich (${d})`, pKinds:"Einordnung F1–F5", pScen:"Szenarien", pRange:"Aussage", pRole:"Rolle", pPos:"Position", pW:"Gewichtung", pBrief:"Stellungnahme", empty:"–"},
+ en:{seqTitle:"Seminar module in six activity sequences", seqHint:"The didactic design of the seminar module: each activity sequence is linked to a phase of technology assessment (VDI 3780) and a problem-solving step. Your answers go straight into the protocol.",
+  set1:"Reading at home, then session 1 (90 min)", set2:"Session 2 (90 min), then policy brief at home",
+  metaSet:"Where", metaTA:"TA phase (VDI 3780)", metaPS:"Problem-solving step",
+  prev:"← Back", next:"Next →", toTool:"To the assumptions", toProt:"To the protocol",
+  steps:[
+   {n:"1 Question", s:"Sort claims", set:"At home, then session 1", ta:"Problem definition", ps:"Recognise the technical problem",
+    task:"Before session 1, read two recent press articles on banning short-haul flights. Sort the claims below: can it be checked with observational data (empirical), does it depend on model assumptions (model-based), or is it a value judgement (normative)? Then write a guiding question that the data can answer."},
+   {n:"2 Data", s:"Understand the data", set:"Session 1", ta:"Information", ps:"Generate information",
+    task:"Look at the OpenSky live map to see where the data come from. The funnel shows what happens to the recorded departures. Note where the analysis has gaps and makes decisions."},
+   {n:"3 Model", s:"Calculate yourself", set:"Session 1", ta:"Impact analysis", ps:"Generate information",
+    task:"Calculate CO₂ per passenger for one flight yourself: fuel per hour × flight time × 3.16 ÷ (seats × load factor). Compare with the tool's value and explain the difference."},
+   {n:"4 Compare", s:"Compare fairly", set:"Session 1", ta:"Impact analysis", ps:"Generate information",
+    task:"Compare door-to-door time and CO₂ per passenger for one destination. Distinguish city travellers from passengers connecting at a hub. Which comparison is fair for whom?"},
+   {n:"5 Test", s:"Test assumptions", set:"Session 2", ta:"Impact analysis", ps:"Make decisions",
+    task:"Classify each of the five analysis questions: does the result rest on observation (empirical), follow from the model (model-based) or from chosen scenarios (scenario)? Then change at least three assumptions on the left, including one framing, and record each scenario. State your claim as a range rather than a single number."},
+   {n:"6 Judge", s:"Judge", set:"Session 2, brief at home", ta:"Evaluation and decision", ps:"Make decisions · Know and understand sustainable development",
+    task:"Take a role, weight the VDI 3780 values and take a position. At home, write a one-page policy brief and attach the protocol. Finally ask yourself: after judging, would you set any assumption differently?"}],
+  claims:[["A flight from Stuttgart to Berlin emits more CO₂ per passenger than the train journey.","m"],["In the study week, 28 scheduled flights went to Berlin.","e"],["Short-haul flights should be banned.","n"],
+   ["Most passengers flying to Munich connect there to a long-haul flight.","e"],["A ban would be unfair to business travellers.","n"],
+   ["The trip to Hamburg takes longer by rail than by air.","e"],["Private jets are a luxury society should not afford.","n"],
+   ["A ban would hardly reduce emissions at Stuttgart Airport.","m"],["Climate protection matters more than short travel times.","n"]],
+  emp:"Empirical", mod:"Model-based", nor:"Normative", showSol:"Show solution", hideSol:"Hide solution", right:"correct", wrong:"rather",
+  qLabel:"Your guiding question", qPh:"e.g. How much CO₂ could be saved per week if all flights from Stuttgart with a rail time under four hours were replaced?",
+  fRaw:"Recorded departures", fDest:"with an estimated destination airport", fSched:"Scheduled and charter flights", fPriv:"Private and business flights",
+  fOther:"Cargo, state/military, under 100 km", fBack:"Returned to Stuttgart (excluded)", fNoAp:"Destination airport not in the database (excluded)", fRail:"Scheduled flights to destinations with a rail link",
+  facts:(p,o)=>`Aircraft type without its own model, similar type used instead: ${p} % of passenger flights. Cruise time from observed ADS-B data: ${o} %.`,
+  liveMap:"Open the OpenSky live map", gapsLabel:"Gaps and decisions in the analysis", gapsPh:"e.g. For one departure in five the destination is unknown …",
+  dest:"Destination", kgph:"Cruise fuel burn (kg/h)", kgphHint:"Guide value A320: about 2,500 kg/h", dur:"Flight time (median)", seats:"Seats per flight", lfNow:"Load factor (from the assumptions)",
+  oFuel:"kg fuel (your calculation)", oOwn:"kg CO₂ per passenger (yours)", oTool:"kg CO₂ per passenger (tool)", oDiff:"Difference",
+  whyLabel:"Why does your result differ?", whyPh:"e.g. climb, taxiing, a different aircraft type …",
+  cCity:"City trip (main station → main station)", cHub:"Connecting (to the airport station)", cCo2:"CO₂ per passenger", air:"Air", rail:"Rail", inLimit:"counts as shifted", outLimit:"does not count",
+  q4:["Who actually travels here: city travellers or connecting passengers?","Which times are missing from the comparison (waiting, working on the train)?","Is a rail detour to the hub reasonable?"],
+  fairLabel:"Which comparison is fair for whom?", hyp:"Five analysis questions: where does the result come from?", kindQ:"Classification", kindE:"empirical", kindM:"model-based", kindS:"scenario", kindPick:"– choose –", kindSol:"Solution", kindWhy:["Chosen assumptions (threshold, switching) drive the result.","Observed flight counts and timetable times; few destinations, exploratory only.","Follows from the fuel model (take-off and climb weigh heavily on short routes).","Depends on the assumed load factor (0.4 vs. 0.8).","Depends on the chosen access times."],
+  h1:(h)=>`Technical upper bound: ${pc(h.pax)} of scheduled passengers could have reached their destination with at most four hours on the train (${pc(h.co2)} of CO₂), ${n0(h.ref)} t per week. Across all assumptions (10,000 scenarios): ${n0(h.lo)}–${n0(h.hi)} t; door to door (+60 min) only ${n0(h.dd)} t.`,
+  h2:(h)=>`No clear relation between rail time and number of scheduled flights: ρ = ${d2(h.rho)} [${d2(h.lo)}; ${d2(h.hi)}]. No scheduled flight despite fast rail: ${h.none}.`,
+  h3:(h)=>`The longer the flight, the less CO₂ per km: under 500 km ${n0(h.short)} g, beyond ${n0(h.long)} g per passenger-km.`,
+  h4:(h)=>`Private flights: ${n0(h.priv)} g CO₂ per passenger-km, ${d1(h.ratio)} times as much as scheduled flights (${n0(h.sched)} g). At equal load factors only ${d1(h.eq)} times.`,
+  h5:(h)=>`Scheduled flights only (${h.n} destinations): door to door, rail is a median ${n0(h.diff)} min slower and faster for ${h.faster} destinations (${h.names}). Depending on access times, ${h.lo}–${h.hi} destinations.`,
+  hNames:["Q1 Substitution","Q2 Rail competition","Q3 Short haul","Q4 Private flights","Q5 Door to door"],
+  keep:"Record current scenario", clear:"Clear scenarios", scen:"Your scenarios", base:"baseline", span:(a,b)=>`Range of your scenarios: ${a}–${b} t CO₂ per week`,
+  rangeLabel:"Your claim as a range", rangePh:"e.g. Depending on the assumptions, 100 to 220 t CO₂ per week could be saved, mainly depending on …",
+  role:"Your role", roles:["Commuter / business traveller","Stuttgart Airport","Environmental group","Residents"],
+  pos:"Your position", poss:["Ban short-haul flights","Expand rail, keep flights","Other measure (e.g. regulate private flights)","Change nothing"],
+  wTitle:"Weighting of the VDI 3780 values (0 = unimportant, 3 = very important)",
+  vdi:["Functionality","Economic efficiency","Prosperity","Safety","Health","Environmental quality","Personal development","Quality of society"],
+  briefLabel:"Core of your policy brief", briefPh:"I recommend … because … Against this … What remains uncertain …",
+  pHead:"Work steps", pS1:"1 Question", pS2:"2 Data", pS3:"3 Model", pS4:"4 Compare", pS5:"5 Test", pS6:"6 Judge",
+  pClaims:(r,n)=>`Claims sorted: ${r} of ${n} as in the solution`, pQ:"Guiding question", pGaps:"Gaps", pCalc:(d,o,t)=>`Own calculation ${d}: ${o} kg CO₂ per passenger, tool ${t} kg`, pWhy:"Explanation",
+  pFair:(d)=>`Comparison (${d})`, pKinds:"Classification Q1–Q5", pScen:"Scenarios", pRange:"Claim", pRole:"Role", pPos:"Position", pW:"Weighting", pBrief:"Policy brief", empty:"–"}
+};
+const S = () => SEQ[LANG];
+const n0 = v => nf0().format(v), d1 = v => dec(v,1), d2 = v => dec(v,2), pc = v => Math.round(v*100) + " %";
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const KEY = "fvb-ablauf-v2";
+let A = {step:0, claims:{}, sol:false, q:"", gaps:"", kgph:"", d3:"", why:"", d4:"", fair:"", scen:[], range:"", w:{}, role:null, pos:null, brief:""};
+try { const s = JSON.parse(localStorage.getItem(KEY) || "null"); if (s) A = {...A, ...s}; } catch {}
+const save = () => { try { localStorage.setItem(KEY, JSON.stringify(A)); } catch {} };
+const rowBy = icao => (LASTR ? LASTR.rows : DATA.rows).find(r => r.icao === icao) || (LASTR ? LASTR.rows : DATA.rows)[0];
+const ta = (f, label, ph) => `<label class="hint" for="f-${f}" style="margin:0;font-weight:600;color:var(--ink)">${label}</label><textarea id="f-${f}" data-f="${f}" placeholder="${esc(ph)}">${esc(A[f])}</textarea>`;
+const destSel = f => `<label class="hint" style="margin:0;display:grid;gap:4px;max-width:320px;font-weight:600;color:var(--ink)">${S().dest}<select data-sel="${f}">${DATA.rows.map(r=>`<option value="${r.icao}" ${A[f]===r.icao?"selected":""}>${esc(nm(r.name))}</option>`).join("")}</select></label>`;
+
+function stepDone(i){
+  return [Object.keys(A.claims).length >= 4 || A.q, A.gaps, A.kgph && A.why, A.fair, A.scen.length >= 3 || A.range, A.pos != null && A.brief][i];
+}
+function renderSteps(){
+  $("stepbtns").innerHTML = S().steps.map((s,i) => `<button type="button" role="tab" class="stepbtn${stepDone(i)?" done":""}" data-step="${i}" aria-selected="${A.step===i}"><span class="n">${esc(s.n)}</span><span class="s">${esc(s.s)}</span></button>`).join("");
+}
+function renderStep(){
+  const s = S().steps[A.step], i = A.step;
+  renderSteps();
+  $("m-set").textContent = s.set; $("m-ta").textContent = s.ta; $("m-ps").textContent = s.ps;
+  $("s-task").textContent = s.task;
+  $("s-prev").disabled = i === 0; $("s-next").disabled = i === 5;
+  let h = "";
+  if (i === 0) {
+    h = S().claims.map(([t,k],j) => { const v = A.claims[j];
+      const nmK = x => ({e:S().emp, m:S().mod, n:S().nor})[x];
+      const fb = A.sol && v ? (v===k ? S().right : `${S().wrong} ${nmK(k)}`) : (A.sol ? nmK(k) : "");
+      return `<div class="claim"><span class="tx">${esc(t)}</span><span class="seg">${["e","m","n"].map(x=>`<button type="button" data-claim="${j}" data-v="${x}" aria-pressed="${v===x}">${nmK(x)}</button>`).join("")}</span><span class="fb">${esc(fb)}</span></div>`; }).join("")
+      + `<div><button class="btn" type="button" data-act="sol">${A.sol?S().hideSol:S().showSol}</button></div>` + ta("q", S().qLabel, S().qPh);
+  } else if (i === 1) {
+    const F = DATA.funnel || {}, raw = F.raw || 1, railN = DATA.rows.reduce((a,r)=>a+r.n,0);
+    const rows = [[S().fRaw, F.raw], [S().fDest, F.raw!=null && F.noDest!=null ? F.raw - F.noDest : null], [S().fBack, F.back], [S().fNoAp, F.noAirport],
+      [S().fSched, F.scheduled], [S().fPriv, F.private], [S().fOther, (F.cargo||0)+(F.state||0)+(F.short||0)],
+      [S().fRail, railN]].filter(r => r[1] != null && r[1] >= 0);
+    h = `<div class="funnel">${rows.map(([l,v]) => `<div class="row"><span>${esc(l)}</span><span class="bar"><i style="width:${Math.max(1,100*v/raw)}%"></i></span><span class="num">${n0(v)}</span></div>`).join("")}</div>`
+      + (F.proxy != null ? `<p class="hint" style="margin:0">${S().facts(F.proxy, F.observed)}</p>` : "")
+      + `<div><a class="btn" href="https://map.opensky-network.org/" target="_blank" rel="noopener">${S().liveMap}</a></div>` + ta("gaps", S().gapsLabel, S().gapsPh);
+  } else if (i === 2) {
+    if (!A.d3) A.d3 = (DATA.rows.find(r=>r.icao==="EDDB") || DATA.rows[0]).icao;
+    h = destSel("d3") + `<div class="calc"><label>${S().kgph}<input type="number" min="0" step="50" data-f="kgph" value="${esc(A.kgph)}" placeholder="2500"><small class="hint" style="margin:0;font-weight:400">${S().kgphHint}</small></label>
+      <label>${S().dur}<input id="c-dur" readonly></label><label>${S().seats}<input id="c-seats" readonly></label><label>${S().lfNow}<input id="c-lf" readonly></label></div>
+      <div class="out"><div><span class="v" id="c-fuel">–</span><br><span class="k">${S().oFuel}</span></div><div><span class="v" id="c-own">–</span><br><span class="k">${S().oOwn}</span></div>
+      <div><span class="v" id="c-tool">–</span><br><span class="k">${S().oTool}</span></div><div><span class="v" id="c-diff">–</span><br><span class="k">${S().oDiff}</span></div></div>` + ta("why", S().whyLabel, S().whyPh);
+  } else if (i === 3) {
+    if (!A.d4) A.d4 = (DATA.rows.find(r=>r.icao==="EDDM") || DATA.rows[0]).icao;
+    h = destSel("d4") + `<div class="out" id="cmp"></div><ul class="hint" style="margin:0;padding-left:20px">${S().q4.map(q=>`<li>${esc(q)}</li>`).join("")}</ul>` + ta("fair", S().fairLabel, "");
+  } else if (i === 4) {
+    const H = DATA.hyp;
+    if (H) { const SOL = ["s","e","m","m","s"], kn = x => ({e:S().kindE, m:S().kindM, s:S().kindS})[x];
+      h = `<h3>${S().hyp}</h3><div class="hcards">${["h1","h2","h3","h4","h5"].map((k,j) => { const v = (A.kinds||{})[j];
+        return `<div class="hcard"><span class="h">${esc(S().hNames[j])}</span><p>${esc(S()[k](H[k]))}</p>
+        <label class="hint" style="margin:0">${S().kindQ} <select data-kind="${j}"><option value="">${S().kindPick}</option>${["e","m","s"].map(x=>`<option value="${x}" ${v===x?"selected":""}>${kn(x)}</option>`).join("")}</select></label>
+        ${A.sol5 ? `<span class="r ${v===SOL[j]?"yes":""}">${S().kindSol}: ${kn(SOL[j])}</span><p class="hint" style="margin:0">${esc(S().kindWhy[j])}</p>` : ""}</div>`; }).join("")}</div>
+        <div><button class="btn" type="button" data-act="sol5">${A.sol5?S().hideSol:S().showSol}</button></div>`; }
+    h += `<h3>${S().scen}</h3><div class="seqnav"><button class="btn" type="button" data-act="keep">${S().keep}</button><button class="btn" type="button" data-act="clearScen">${S().clear}</button></div><div id="scen"></div>` + ta("range", S().rangeLabel, S().rangePh);
+  } else {
+    h = `<h3>${S().role}</h3><div class="choices">${S().roles.map((r,j)=>`<button type="button" data-role="${j}" aria-pressed="${A.role===j}">${esc(r)}</button>`).join("")}</div>
+      <h3>${S().wTitle}</h3><div class="weights">${S().vdi.map((v,j)=>`<div><label for="w${j}">${esc(v)} <output id="ow${j}">${A.w[j] ?? 1}</output></label><input type="range" id="w${j}" data-w="${j}" min="0" max="3" step="1" value="${A.w[j] ?? 1}"></div>`).join("")}</div>
+      <h3>${S().pos}</h3><div class="choices">${S().poss.map((r,j)=>`<button type="button" data-pos="${j}" aria-pressed="${A.pos===j}">${esc(r)}</button>`).join("")}</div>` + ta("brief", S().briefLabel, S().briefPh);
+  }
+  $("s-work").innerHTML = h;
+  seqUpdate();
+}
+function seqUpdate(){
+  if (!LASTR || !$("s-work")) return;
+  const f0 = nf0(), f1 = nf1();
+  if (A.step === 2 && $("c-dur")) {
+    const r = rowBy(A.d3), seats = r.seats / r.n, lf = LASTR.p.lf;
+    $("c-dur").value = Math.round(r.dur) + " min"; $("c-seats").value = f0.format(seats); $("c-lf").value = pct(lf);
+    const k = parseFloat(A.kgph);
+    $("c-tool").textContent = f0.format(r.airPP);
+    if (k > 0) { const fuel = k * r.dur / 60, own = fuel * 3.16 / (seats * lf);
+      $("c-fuel").textContent = f0.format(fuel); $("c-own").textContent = f0.format(own);
+      $("c-diff").textContent = (own >= r.airPP ? "+" : "−") + Math.abs(Math.round(100*(own/r.airPP-1))) + " %"; }
+    else ["c-fuel","c-own","c-diff"].forEach(id => $(id).textContent = "–");
+  }
+  if (A.step === 3 && $("cmp")) {
+    const r = rowBy(A.d4), lim = ok => ok ? S().inLimit : S().outLimit;
+    let c = `<div><span class="k">${S().cCity}</span><br><span class="v">${hm(r.doorAir)} / ${r.doorRail==null?"–":hm(r.doorRail)}</span><br><span class="k">${S().air} / ${S().rail} · ${lim(r.cityOK)}</span></div>`;
+    if (r.hub) c += `<div><span class="k">${S().cHub}</span><br><span class="v">${hm(r.doorAirT)} / ${r.doorRailT==null?"–":hm(r.doorRailT)}</span><br><span class="k">${S().air} / ${S().rail} · ${lim(r.hubOK)}</span></div>`;
+    c += `<div><span class="k">${S().cCo2}</span><br><span class="v">${f0.format(r.airPP)} / ${f1.format(r.railPP)} kg</span><br><span class="k">${S().air} / ${S().rail}</span></div>`;
+    $("cmp").innerHTML = c;
+  }
+  if (A.step === 4 && $("scen")) {
+    if (!A.scen.length) { $("scen").innerHTML = ""; }
+    else { const v = A.scen.map(x=>x.save);
+      $("scen").innerHTML = `<ol class="scenlist">${A.scen.map(x=>`<li>${f0.format(x.save)} t · ${esc(x.label)}</li>`).join("")}</ol><p class="hint" style="margin:6px 0 0;color:var(--ink);font-weight:600">${S().span(f0.format(Math.min(...v)), f0.format(Math.max(...v)))}</p>`; }
+  }
+}
+const lab = i => L()[i] || ((i==="aat"||i==="rat") ? `${L()[i.slice(0,2)]} (${L().transferRow})` : i);
+function changedLabel(){
+  const p = params(), parts = IDS.filter(i => DATA.basis[i] != null && Math.abs(p[i] - DATA.basis[i]) > 1e-9).map(i => `${lab(i)} ${FMT[i](p[i])}`);
+  if (excluded.size) parts.push("− " + [...excluded].map(k => nm(rowBy(k).name)).join(", "));
+  return parts.join("; ") || S().base;
+}
+function stepsProto(){
+  const s = S(), e = v => (v && String(v).trim()) || s.empty, f0 = nf0();
+  const nClaims = Object.keys(A.claims).length, right = Object.entries(A.claims).filter(([j,v]) => s.claims[j] && s.claims[j][1] === v).length;
+  let t = `${s.pHead}\n${s.pS1}: ${nClaims ? s.pClaims(right, s.claims.length) : s.empty}\n  ${s.pQ}: ${e(A.q)}\n${s.pS2}: ${s.pGaps}: ${e(A.gaps)}\n`;
+  if (A.kgph && LASTR) { const r = rowBy(A.d3), seats = r.seats/r.n, own = parseFloat(A.kgph)*r.dur/60*3.16/(seats*LASTR.p.lf);
+    t += `${s.pS3}: ${s.pCalc(nm(r.name), f0.format(own), f0.format(r.airPP))}\n  ${s.pWhy}: ${e(A.why)}\n`; }
+  else t += `${s.pS3}: ${s.empty}\n`;
+  t += `${s.pS4}: ${A.d4 ? s.pFair(nm(rowBy(A.d4).name)) : ""} ${e(A.fair)}\n`;
+  const kk = A.kinds || {}, knm = x => ({e:s.kindE, m:s.kindM, s:s.kindS})[x] || s.empty;
+  t += `${s.pS5}: ${s.pKinds}: ${[0,1,2,3,4].map(j => `${j+1} ${knm(kk[j])}`).join(", ")}\n  ${s.pScen}: ${A.scen.length ? A.scen.map(x=>`${f0.format(x.save)} t (${x.label})`).join(" | ") : s.empty}\n  ${s.pRange}: ${e(A.range)}\n`;
+  t += `${s.pS6}: ${s.pRole}: ${A.role!=null ? s.roles[A.role] : s.empty}; ${s.pPos}: ${A.pos!=null ? s.poss[A.pos] : s.empty}\n  ${s.pW}: ${s.vdi.map((v,j)=>`${v} ${A.w[j] ?? 1}`).join(", ")}\n  ${s.pBrief}: ${e(A.brief)}`;
+  return t;
+}
+function seqTexts(){ document.querySelectorAll("[data-i]").forEach(el => { const v = S()[el.dataset.i]; if (typeof v === "string") el.textContent = v; }); }
+$("stepbtns").addEventListener("click", e => { const b = e.target.closest("[data-step]"); if (b){ A.step = +b.dataset.step; save(); renderStep(); } });
+$("s-prev").addEventListener("click", () => { if (A.step > 0){ A.step--; save(); renderStep(); } });
+$("s-next").addEventListener("click", () => { if (A.step < 5){ A.step++; save(); renderStep(); } });
+$("s-work").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.claim != null){ A.claims[b.dataset.claim] = b.dataset.v; }
+  else if (b.dataset.act === "sol"){ A.sol = !A.sol; }
+  else if (b.dataset.act === "sol5"){ A.sol5 = !A.sol5; }
+  else if (b.dataset.act === "keep" && LASTR){ A.scen.push({save: Math.round(LASTR.save), label: changedLabel()}); }
+  else if (b.dataset.act === "clearScen"){ A.scen = []; }
+  else if (b.dataset.role != null){ A.role = +b.dataset.role; }
+  else if (b.dataset.pos != null){ A.pos = +b.dataset.pos; }
+  else return;
+  save(); renderStep(); writeProto();
+});
+$("s-work").addEventListener("input", e => {
+  const t = e.target;
+  if (t.dataset.f){ A[t.dataset.f] = t.value; }
+  else if (t.dataset.w != null){ A.w[t.dataset.w] = +t.value; const o = $("ow"+t.dataset.w); if (o) o.textContent = t.value; }
+  else return;
+  save(); seqUpdate(); writeProto(); renderSteps();
+});
+document.querySelectorAll("[data-go]").forEach(b => b.addEventListener("click", () => { const t = $(b.dataset.go); if (t) t.scrollIntoView({behavior:"smooth", block:"start"}); }));
+$("s-work").addEventListener("change", e => { const t = e.target;
+  if (t.dataset.sel){ A[t.dataset.sel] = t.value; save(); seqUpdate(); writeProto(); }
+  if (t.dataset.kind != null){ A.kinds = {...(A.kinds||{}), [t.dataset.kind]: t.value}; save(); renderStep(); writeProto(); } });
+function setLang(l){ LANG = l; try { history.replaceState(null, "", l==="en" ? "#en" : location.pathname + location.search); } catch {} texte(); zeichnen(); renderStep(); }
+
+function start(){
+  if (!DATA){ document.querySelector(".wrap").insertAdjacentHTML("afterbegin","<p>No data. Run werkzeug_bauen.py.</p>"); return; }
+  setBasis(); texte(); zeichnen(); renderStep();
+}
+document.addEventListener("change", e => { if (e.target.tagName === "SELECT" && IDS.includes(e.target.id)) zeichnen(); });
+document.addEventListener("input", e => { if (IDS.includes(e.target.id)) { if (e.target.id === "tr") trOverride.clear(); zeichnen(); } });
+$("tbody").addEventListener("change", e => {
+  const c = e.target.dataset.icao, t = e.target.dataset.tr;
+  if (c){ e.target.checked ? excluded.delete(c) : excluded.add(c); zeichnen(); }
+  if (t){ const v = Math.min(100, Math.max(0, parseFloat(e.target.value)||0)); trOverride.set(t, v/100); zeichnen(); }
+});
+$("reset").addEventListener("click", () => { setBasis(); excluded.clear(); trOverride.clear(); zeichnen(); });
+$("lang-de").addEventListener("click", () => setLang("de"));
+$("lang-en").addEventListener("click", () => setLang("en"));
+window.addEventListener("hashchange", () => { const l = location.hash === "#en" ? "en" : "de"; if (l !== LANG) setLang(l); });
+$("copy").addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText($("proto").value); $("copied").textContent = L().copied; }
+  catch { $("proto").select(); $("copied").textContent = L().copyFail; }
+});
+start();
+</script>

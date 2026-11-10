@@ -1,0 +1,35 @@
+Rohdaten: 893 Abflüge, davon ohne geschätztes Ziel: 187 (21%)
+Datentrichter: 893 - 187 ohne Ziel - 25 Rückkehr nach EDDS - 16 Zielflughafen nicht in der OpenAP-Datenbank = 665 Flüge mit Ziel
+Klassen (mit Ziel): Linie/Charter 557, Privat/Geschäft 81, Fracht 16, Unter 100 km 6, Staat/Militär 5
+Fracht, Staat/Militär und Flüge unter 100 km sind aus der Passagieranalyse ausgeschlossen.
+Als Linie/Charter gezählte Präfixe (bitte in betreiber.csv prüfen, falls fraglich): EWG 270, SXS 38, KLM 29, PGT 26, DLH 25, AUA 19, THY 19, TUI 19, SWR 16, TKJ 13, SAS 12, VLG 11, AEE 11, CFG 8, LOT 8, WZZ 5, ASL 4, WMT 3, FHY 3, KLC 3, CAI 3, LHX 2, LGL 1, FHM 1, EUP 1, MSC 1, SWT 1, NVD 1, TVS 1, TYJ 1
+Flugzeugdatenbank: typen.csv
+Zeitraum: 7 Tage, Passagierflüge mit bekanntem Ziel: 638
+Davon Privat-/Geschäftsflüge: 81
+Flugtyp nur über Ersatzmodell geschätzt: 24% der Flüge
+Reiseflugdauer aus ADS-B-Beobachtung: 98% der Flüge
+Ziele ohne Bahn-Eintrag (nicht im Bahnvergleich): EBCV, EBKT, EDAY, EDDG, EDDR, EDGS, EDKB, EDLD, EDLI, EDLN, EDLP, EDMA, EDNY, EDVE, EDVY, EDXW, EGCC, EGGD, EGGW, EGKB, EGKK, EGLL, EGNX, EGPF, EGPH, EHBK, EIDW, EKCH, EKVJ, EPBY, EPKK, EPPO, EPWA, ESSA, GCRR, KBGR, LBSF, LCLK, LDOC, LDZA, LEAL, LEBL, LEIB, LEMD, LEMG, LEMH, LEMU, LEPA, LEVC, LFKB, LFKJ, LFMD, LFPB, LFSK, LGAV, LGKO, LGKV, LGMK, LGRP, LGTS, LGZA, LHBP, LIAU, LICA, LICC, LICJ, LICZ, LIMF, LIMJ, LIPB, LIRF, LIRN, LIRU, LKPD, LOWL, LOWS, LPMA, LPPR, LPPT, LROP, LSGG, LSZR, LSZS, LTAI, LTBA, LTBL, LTBS, LTFA, LTFB, LTFE, LTFJ, LTFM, LYBE, LZTT
+
+Annahmen: auslastung=0.8, auslastung_privat=0.4, masse_anteil=0.8, umweg=1.05, rollzeit_min=15, co2_je_kg_kerosin=3.16, bahn_g_pkm=29.0, bahn_umweg=1.25, flug_zugang_min=150, bahn_zugang_min=40, bahn_grenze_min=240, flug_zugang_umst_min=120, bahn_zugang_umst_min=110, umsteiger_anteil=-1.0, min_entfernung_km=100.0
+
+H1 Verlagerungspotenzial (deskriptiv)
+   Szenarien: Stadtreisende Hbf -> Hbf, Umsteiger Hbf -> Flughafenbahnhof des Drehkreuzes, Grenze 240 min Bahnfahrt
+   Linienflüge mit zumindest teilweise verlagerbaren Passagieren: 48 von 557; passagiergewichtet 8.1% der Passagiere, CO2-Anteil 3.7%
+   Rechnerische Einsparung bei vollständiger Verlagerung: 221.7 t CO2 im Zeitraum (Obergrenze: Ausweichen aufs Auto und frei werdende Slots nicht berücksichtigt)
+
+H2 Je kürzer die Bahnfahrzeit, desto weniger Flüge (bei Kontrolle der Entfernung)
+   H0: kein Zusammenhang; H1: positiver Zusammenhang Bahnzeit ~ Flüge (einseitig)
+   Spearman (alle Ziele, n=24): rho=0.35, p(einseitig)=0.047
+   Quasi-Poisson (alle Ziele): Elastizität Bahnzeit b=-0.08 (SE 0.97), p(einseitig)=0.532  -> +10 % Bahnzeit ~ -1% Flüge
+   Spearman (ohne Drehkreuze, n=17): rho=0.46, p(einseitig)=0.030
+   Quasi-Poisson (ohne Drehkreuze): Elastizität Bahnzeit b=-1.71 (SE 1.50), p(einseitig)=0.874  -> +10 % Bahnzeit ~ -15% Flüge
+   Achtung: Fallzahl = Anzahl Ziele (klein) -> geringe Teststärke, nur explorativ.
+
+H3 Kurzstrecken verursachen mehr CO2 je Personenkilometer
+   Spearman Entfernung ~ g CO2/Pkm (n=557 Flüge): rho=-0.80, p(einseitig)=0.0000
+   Mann-Whitney <500 km (Median 235 g) vs. >=500 km (Median 97 g): U=30722, p=0.0000
+   Hinweis: Das Ergebnis hängt stark am Modell (Start/Steigflug fallen bei Kurzstrecken ins Gewicht) und an den Flugzeugtypen; Flüge sind nicht unabhängig (gleiche Strecken/Typen).
+
+H4 Privat-/Geschäftsflüge verursachen mehr CO2 pro Person als Linienflüge
+   Median g CO2/Pkm privat 993 vs. Linie 101; Mann-Whitney U=44865, p=0.0000
+   Anteil Privatflüge an Flügen 12.7%, an CO2 2.8%

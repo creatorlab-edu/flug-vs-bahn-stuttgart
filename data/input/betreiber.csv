@@ -1,0 +1,39 @@
+praefix,klasse,betreiber,sicher
+TAY,Fracht,ASL Airlines Belgium (Expressfracht),ja
+BCS,Fracht,European Air Transport Leipzig (DHL),ja
+DHK,Fracht,DHL Air UK,ja
+DHX,Fracht,DHL Aviation,ja
+BOX,Fracht,AeroLogic,ja
+GEC,Fracht,Lufthansa Cargo,ja
+FDX,Fracht,FedEx,ja
+UPS,Fracht,UPS Airlines,ja
+CLX,Fracht,Cargolux,ja
+SWN,Fracht,West Atlantic,ja
+NPT,Fracht,West Atlantic UK,ja
+GAF,Staat/Militär,Luftwaffe,ja
+RCH,Staat/Militär,US Air Mobility Command,ja
+CNV,Staat/Militär,US Navy,ja
+SAM,Staat/Militär,US Special Air Mission,ja
+BAF,Staat/Militär,Belgische Luftwaffe,ja
+IAM,Staat/Militär,Italienische Luftwaffe,ja
+CTM,Staat/Militär,Französische Luftwaffe,ja
+NJE,Privat/Geschäft,NetJets Europe,ja
+VJT,Privat/Geschäft,VistaJet,ja
+PWF,Privat/Geschäft,Private Wings,ja
+EFD,Privat/Geschäft,Eisele Flugdienst,ja
+DCS,Privat/Geschäft,DC Aviation,ja
+IJM,Privat/Geschäft,International Jet Management,ja
+JFA,Privat/Geschäft,Jetfly Aviation,ja
+GAC,Privat/Geschäft,GlobeAir AG,"ja (geprüft H. Nepper, 1.11.2026)"
+FSE,Privat/Geschäft,Alpine Flightservice,"ja (geprüft H. Nepper, 1.11.2026)"
+BOM,Privat/Geschäft,Haute Aviation,"ja (geprüft H. Nepper, 1.11.2026)"
+AMQ,Privat/Geschäft,AMC Aviation,"ja (geprüft H. Nepper, 1.11.2026)"
+PAV,Privat/Geschäft,ProAir Aviation,"ja (geprüft H. Nepper, 1.11.2026)"
+PVG,Linie/Charter,Privilege Style (Charterairline),"ja (geprüft H. Nepper, 1.11.2026)"
+BTX,Privat/Geschäft,Volkswagen Air Service,"ja (geprüft H. Nepper, 1.11.2026)"
+SUZ,Privat/Geschäft,Zeusch Aviation,"ja (geprüft H. Nepper, 1.11.2026)"
+CGF,Fracht,Cargo Air,"ja (geprüft H. Nepper, 1.11.2026)"
+PBW,Staat/Militär,Polizeihubschrauberstaffel Baden-Württemberg,"ja (geprüft H. Nepper, 1.11.2026)"
+VAL,Staat/Militär,United States Air Force,"ja (geprüft H. Nepper, 1.11.2026)"
+DUK,Staat/Militär,United States Army,"ja (geprüft H. Nepper, 1.11.2026)"
+CMB,Staat/Militär,Berry Aviation (Auftragsflüge US-Militär),"ja (geprüft H. Nepper, 1.11.2026)"

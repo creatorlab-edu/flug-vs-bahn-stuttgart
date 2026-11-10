@@ -1,0 +1,5 @@
+class,hourly consumption,no type: default model,own OpenAP model,substitute model,all
+private/business,35,8,0,38,81
+scheduled/charter,0,46,488,23,557
+all,35,54,488,61,638
+of which shifted (H1),0,4,35,9,48

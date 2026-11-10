@@ -1,0 +1,359 @@
+{
+  "n_flights": 638,
+  "n_scheduled": 557,
+  "n_private": 81,
+  "share_observed_duration": 0.9843260188087775,
+  "n_destinations_rule": 24,
+  "n_destinations_rail": 24,
+  "destinations_rail_pending": [],
+  "Q2": {
+    "label": "empirical (exploratory)",
+    "n": 24,
+    "rho": 0.34929358243800857,
+    "ci": [
+      -0.06962370654255114,
+      0.6984000773652621
+    ],
+    "rho_rail_distance": 0.6904347826086955,
+    "n_without_hubs": 17,
+    "rho_without_hubs": 0.46349066216187,
+    "no_flights": [
+      "Bern",
+      "Brussels",
+      "Cologne/Bonn",
+      "Dortmund",
+      "Dresden",
+      "Frankfurt",
+      "Nuremberg",
+      "Paris",
+      "Prague"
+    ],
+    "rail_rank": [
+      [
+        "Frankfurt",
+        80.0,
+        0
+      ],
+      [
+        "Nuremberg",
+        114.0,
+        0
+      ],
+      [
+        "Munich",
+        117.0,
+        28
+      ],
+      [
+        "Cologne/Bonn",
+        133.0,
+        0
+      ],
+      [
+        "Düsseldorf",
+        147.0,
+        1
+      ],
+      [
+        "Paris",
+        195.0,
+        0
+      ],
+      [
+        "Dortmund",
+        201.0,
+        0
+      ],
+      [
+        "Zurich",
+        216.0,
+        17
+      ],
+      [
+        "Hannover",
+        222.0,
+        1
+      ],
+      [
+        "Bern",
+        226.0,
+        0
+      ],
+      [
+        "Luxembourg",
+        231.0,
+        1
+      ],
+      [
+        "Leipzig",
+        246.0,
+        1
+      ],
+      [
+        "Berlin",
+        284.0,
+        28
+      ],
+      [
+        "Brussels",
+        286.0,
+        0
+      ],
+      [
+        "Amsterdam",
+        301.0,
+        33
+      ],
+      [
+        "Bremen",
+        316.0,
+        4
+      ],
+      [
+        "Hamburg",
+        331.0,
+        23
+      ],
+      [
+        "Dresden",
+        336.0,
+        0
+      ],
+      [
+        "Lyon",
+        351.0,
+        1
+      ],
+      [
+        "Milan",
+        381.0,
+        8
+      ],
+      [
+        "Vienna",
+        402.0,
+        33
+      ],
+      [
+        "Prague",
+        444.0,
+        0
+      ],
+      [
+        "Venice",
+        548.0,
+        2
+      ],
+      [
+        "Nice",
+        689.0,
+        4
+      ]
+    ]
+  },
+  "Q3_mixed": {
+    "label": "model-based",
+    "n": 557,
+    "groups": 13,
+    "elasticity": -0.4057588352583594,
+    "ci": [
+      -0.42108352423351253,
+      -0.3904341462832062
+    ]
+  },
+  "Q3_short_long": {
+    "n_short": 64,
+    "n_long": 493,
+    "n_short_in_rail_table": 64,
+    "short_destinations": {
+      "Munich": 28,
+      "Zurich": 17,
+      "Milan": 8,
+      "Bremen": 4,
+      "Venice": 2,
+      "Leipzig": 1,
+      "Hannover": 1,
+      "Luxembourg": 1,
+      "Lyon": 1,
+      "Düsseldorf": 1
+    },
+    "median_short": 235.25131533631765,
+    "median_long": 96.53906140454568,
+    "cliffs_delta": 0.9473884381338742
+  },
+  "Q4": {
+    "label": "model-based (load factor assumed)",
+    "n_private": 81,
+    "n_scheduled": 557,
+    "median_private": 993.076553907728,
+    "median_scheduled": 100.62331101835476,
+    "ratio": 9.869249420013423,
+    "ratio_equal_lf": 4.9346247100067115,
+    "ratio_lf_030": 13.158999226684566,
+    "ratio_lf_060": 6.579499613342283,
+    "cliffs_delta": 0.9888290444843406,
+    "share_flights": 0.12695924764890282,
+    "share_co2": 0.02846507913801778,
+    "n_jets": 46,
+    "n_light": 35
+  },
+  "Q5": {
+    "label": "scenario",
+    "n": 15,
+    "destinations": [
+      "Amsterdam",
+      "Vienna",
+      "Berlin",
+      "Munich",
+      "Hamburg",
+      "Zurich",
+      "Milan",
+      "Nice",
+      "Bremen",
+      "Venice",
+      "Hannover",
+      "Düsseldorf",
+      "Luxembourg",
+      "Leipzig",
+      "Lyon"
+    ],
+    "median_diff_min": 122.11666666666667,
+    "n_rail_faster": 2,
+    "rail_faster": "Munich, Düsseldorf",
+    "range_n_rail_faster": [
+      0,
+      2
+    ],
+    "range_median_diff": [
+      72.11666666666667,
+      172.11666666666667
+    ],
+    "connecting_median_diff_min": 195.55833333333334,
+    "connecting_n_rail_faster": 0,
+    "n_hubs": 4,
+    "breakeven_rail_min": 167.375
+  },
+  "ratio_air_rail": {
+    "min": 3.163482557854018,
+    "max": 7.844503750639718,
+    "min_at_45g": 2.0386887595059227,
+    "max_at_5g": 45.498121753710365,
+    "at_45g": {
+      "Amsterdam": 2.9,
+      "Vienna": 2.0,
+      "Berlin": 2.0,
+      "Munich": 4.3,
+      "Hamburg": 2.1,
+      "Zurich": 5.1,
+      "Milan": 3.1,
+      "Nice": 2.4,
+      "Bremen": 2.2,
+      "Venice": 2.6,
+      "Hannover": 2.4,
+      "Düsseldorf": 2.4,
+      "Luxembourg": 4.1,
+      "Leipzig": 2.3,
+      "Lyon": 2.7
+    }
+  },
+  "funnel": {
+    "raw": 893,
+    "no_destination": 187,
+    "return_to_origin": 25,
+    "airport_not_in_db": 16,
+    "with_destination": 665
+  },
+  "classes_with_destination": {
+    "Linie/Charter": 557,
+    "Privat/Geschäft": 81,
+    "Fracht": 16,
+    "Unter 100 km": 6,
+    "Staat/Militär": 5
+  },
+  "classes_without_destination": {
+    "Linie/Charter": 182,
+    "Privat/Geschäft": 3,
+    "Staat/Militär": 2
+  },
+  "share_proxy_type": 0.23510971786833856,
+  "n_type_implausible": 3,
+  "Q1": {
+    "label": "scenario (technical upper bound)",
+    "n_flights": 48,
+    "share_flights": 0.08617594254937164,
+    "share_co2": 0.03684646591216042,
+    "share_passengers": 0.08074153345372662,
+    "n_scheduled_all": 557,
+    "share_flights_rail_dest": 0.33213644524236985,
+    "saving_t_reference": 221.73294232428924,
+    "saving_t_whole_flights": 221.73294232428918,
+    "mc_median": 163.77558679945324,
+    "mc_95_range": [
+      82.30120703337049,
+      373.7003300861333
+    ],
+    "proxy_share_of_saving": 0.24271451597281368,
+    "n_proxy_shifted": 13,
+    "reference": {
+      "load_factor": 0.8,
+      "fuel_model_error": 1.0,
+      "proxy_fuel_factor": 1.0,
+      "rail_g_pkm": 29.0,
+      "rail_detour": 1.25,
+      "modal_shift_share": 1.0,
+      "transfer_share_hubs": 0.5,
+      "threshold_min": 240.0,
+      "taxi_min": 15.0
+    },
+    "ranges": {
+      "load_factor": [
+        0.65,
+        0.9
+      ],
+      "fuel_model_error": [
+        0.85,
+        1.15
+      ],
+      "proxy_fuel_factor": [
+        0.75,
+        1.25
+      ],
+      "rail_g_pkm": [
+        5.0,
+        45.0
+      ],
+      "rail_detour": [
+        1.15,
+        1.4
+      ],
+      "modal_shift_share": [
+        0.5,
+        1.0
+      ],
+      "transfer_share_hubs": [
+        0.3,
+        0.7
+      ],
+      "threshold_min": [
+        180.0,
+        300.0
+      ],
+      "taxi_min": [
+        10.0,
+        25.0
+      ]
+    },
+    "sobol": {
+      "load_factor": 0.002,
+      "fuel_model_error": 0.072,
+      "proxy_fuel_factor": 0.007,
+      "rail_g_pkm": 0.037,
+      "rail_detour": 0.002,
+      "modal_shift_share": 0.236,
+      "transfer_share_hubs": 0.002,
+      "threshold_min": 0.568,
+      "taxi_min": 0.011
+    }
+  },
+  "demo": false
+}

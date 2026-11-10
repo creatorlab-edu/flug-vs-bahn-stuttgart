@@ -1,0 +1,12 @@
+group,criterion,n_flights,share_flights,share_passengers,share_co2,saving_t,saving_t_whole_flights,saving_t_transfer_30,saving_t_transfer_70
+in-vehicle,In-vehicle rail time ≤ 2.5 h,29,0.052,0.026,0.012,71.899,71.899,98.849,44.949
+in-vehicle,In-vehicle rail time ≤ 3 h,29,0.052,0.049,0.023,139.274,139.274,139.274,139.274
+in-vehicle,In-vehicle rail time ≤ 4 h (reference),48,0.086,0.081,0.037,221.733,221.733,221.733,221.733
+in-vehicle,In-vehicle rail time ≤ 5 h,77,0.138,0.134,0.068,373.513,373.513,373.513,373.513
+door-to-door,Door-to-door: rail ≤ air + 0 min,29,0.052,0.026,0.012,71.899,71.899,98.849,44.949
+door-to-door,Door-to-door: rail ≤ air + 60 min,30,0.054,0.028,0.013,78.018,78.018,104.968,51.068
+door-to-door,Door-to-door: rail ≤ air + 120 min,77,0.138,0.096,0.051,270.777,268.393,311.871,229.682
+access,"Door-to-door + 60 min, air access 120 min",29,0.052,0.026,0.012,71.899,71.899,98.849,44.949
+access,"Door-to-door + 60 min, air access 180 min",49,0.088,0.045,0.021,123.753,121.369,164.847,82.658
+access,"Door-to-door + 60 min, rail access 20 min",47,0.084,0.042,0.019,113.379,110.995,154.474,72.285
+access,"Door-to-door + 60 min, rail access 60 min",29,0.052,0.026,0.012,71.899,71.899,98.849,44.949

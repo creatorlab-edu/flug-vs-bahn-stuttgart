@@ -1,0 +1,10 @@
+parameter,label,reference,low,high,saving_low,saving_high,sobol_first_order
+load_factor,Load factor (0.65–0.90),0.8,0.65,0.9,229.057,216.85,0.002
+fuel_model_error,Fuel model error (±15 %),1.0,0.85,1.15,182.614,260.852,0.072
+proxy_fuel_factor,Substitute/default aircraft models (±25 %),1.0,0.75,1.25,206.387,237.079,0.007
+rail_g_pkm,Rail g CO₂/pkm (5–45),29.0,5.0,45.0,254.059,200.182,0.037
+rail_detour,Rail detour (1.15–1.40),1.25,1.15,1.4,224.858,217.046,0.002
+modal_shift_share,Share actually shifting (50–100 %),1.0,0.5,1.0,110.866,221.733,0.236
+transfer_share_hubs,Transfer share at hubs (30–70 %),0.5,0.3,0.7,221.733,221.733,0.002
+threshold_min,In-vehicle threshold (3–5 h),240.0,180.0,300.0,139.274,373.513,0.568
+taxi_min,Taxi time (10–25 min),15.0,10.0,25.0,210.857,243.484,0.011
